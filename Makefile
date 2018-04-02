@@ -10,3 +10,6 @@ test:
 
 testreset:
 	pipenv run python manage.py test $(ARG) --parallel
+
+coverage:
+	pipenv run coverage run --source='.' manage.py test

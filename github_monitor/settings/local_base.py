@@ -1,6 +1,7 @@
 # flake8: noqa
 
 from .base import *
+from dj_database_url import parse as db_url
 
 
 DEBUG = True
@@ -10,10 +11,7 @@ HOST = 'http://localhost:8000'
 SECRET_KEY = 'secret'
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': base_dir_join('db.sqlite3'),
-    }
+    'default': config('DATABASE_URL', cast=db_url, default='sqlite:///db.sqlite3')
 }
 
 STATIC_ROOT = base_dir_join('staticfiles')

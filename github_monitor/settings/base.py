@@ -7,16 +7,11 @@ import sys
 from decouple import config
 
 
-BASE_DIR = os.path.dirname(
-    os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 def base_dir_join(*args):
     return os.path.join(BASE_DIR, *args)
-
-APPS_DIR = base_dir_join('apps')
-sys.path.insert(0, APPS_DIR)
 
 SITE_ID = 1
 
