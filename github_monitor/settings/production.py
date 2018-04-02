@@ -1,8 +1,9 @@
 # flake8: noqa
 
-from .base import *
 from decouple import Csv, config
 from dj_database_url import parse as db_url
+
+from .base import *
 
 
 DEBUG = False
