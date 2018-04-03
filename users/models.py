@@ -56,7 +56,6 @@ class GithubUser(AbstractUserSocialAuth, IndexedTimeStampedModel):
         related_name='github',
         on_delete=models.CASCADE
     )
-    avatar = models.URLField(null=True, blank=True)
 
     def __str__(self):
         return self.user.username

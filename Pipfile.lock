@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "afe8c15184256ef89f8f4a3e35aab5adbecec38d7c2758e2609e77fb84a7f681"
+            "sha256": "de5e1aba2f2e36e78a8abd1c8fe3fce195aadebd88d9d08476947f7bacbccb8b"
         },
         "host-environment-markers": {
             "implementation_name": "cpython",
@@ -149,6 +149,7 @@
                 "sha256:702a91ade2968a82beb0db1e0766a6a273f33d4616a6ce8cde475d8e09853b20",
                 "sha256:24d7f2f94f7f3cb6061acb215685e5125fbcdc40a857eff9de22518820b0a4f4"
             ],
+            "markers": "python_version >= '3.0'",
             "version": "==0.5.0"
         },
         "diff-match-patch": {
@@ -198,12 +199,25 @@
             ],
             "version": "==3.1.1"
         },
+        "django-rest-framework": {
+            "hashes": [
+                "sha256:47a8f496fa69e3b6bd79f68dd7a1527d907d6b77f009e9db7cf9bb21cc565e4a"
+            ],
+            "version": "==0.1.0"
+        },
         "django-webpack-loader": {
             "hashes": [
                 "sha256:970b968c2a8975fb7eff56a3bab5d0d90d396740852d1e0c50c5cfe2b824199a",
                 "sha256:60bab6b9a037a5346fad12d2a70a6bc046afb33154cf75ed640b93d3ebd5f520"
             ],
             "version": "==0.6.0"
+        },
+        "djangorestframework": {
+            "hashes": [
+                "sha256:bb9d74756a6b157bfb2e395b200b11f87c837f45f5e097b2308ed7a526e7dcbe",
+                "sha256:be299fb3f289e22ddca0ff88294924cd06aa3bcfa5043f72792d2a18d96dabe8"
+            ],
+            "version": "==3.8.0"
         },
         "et-xmlfile": {
             "hashes": [
@@ -873,10 +887,10 @@
         },
         "requests": {
             "hashes": [
-                "sha256:6a1b267aa90cac58ac3a765d067950e7dbbf75b1da07e895d1f594193a40a38b",
-                "sha256:9c443e7324ba5b85070c4a818ade28bfabedf16ea10206da1132edaa6dda237e"
+                "sha256:113fbba5531a9e34945b7d36b33a084e8ba5d0664b703c81a7c572d91919a5b8",
+                "sha256:c577815dd00f1394203fc44eb979724b098f88264a9ef898ee45b8e5e9cf587f"
             ],
-            "version": "==2.18.4"
+            "version": "==2.9.1"
         },
         "safety": {
             "hashes": [

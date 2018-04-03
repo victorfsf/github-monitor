@@ -1,5 +1,5 @@
-from .lists import RepositoryList
-from .lists import CommitList
+from .viewsets import CommitViewSet
+from .viewsets import RepositoryViewSet
 
 
-__all__ = ['CommitList', 'RepositoryList']
+__all__ = ['RepositoryViewSet', 'CommitViewSet']
