@@ -39,6 +39,7 @@ gunicorn = "*"
 opbeat = "*"
 whitenoise = "*"
 ipython = "*"
+social-auth-app-django = "*"
 
 
 [requires]

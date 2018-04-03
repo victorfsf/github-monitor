@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django_js_reverse',
     'webpack_loader',
     'import_export',
+    'social_django',
 
     'common',
     'users',
@@ -53,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware'
 ]
 
 ROOT_URLCONF = 'github_monitor.urls'
@@ -68,6 +70,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect'
             ],
         },
     },
@@ -80,7 +84,7 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME': 'django.contrib.-.password_validation.MinimumLengthValidator',
     },
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
@@ -89,6 +93,25 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+AUTHENTICATION_BACKENDS = [
+    'social_core.backends.github.GithubOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+LOGIN_URL = 'login'
+
+LOGOUT_URL = 'logout'
+
+LOGIN_REDIRECT_URL = 'admin:index'
+
+SOCIAL_AUTH_GITHUB_KEY = 'b977200f1c3614415d94'
+
+SOCIAL_AUTH_GITHUB_SECRET = 'c7bf5991dba288e71263a8908bc54a5fcda52bd7'
+
+SOCIAL_AUTH_GITHUB_SCOPE = ['user:email', 'user:username', 'user:name', 'user:access_token']
+
+SOCIAL_AUTH_STORAGE = 'users.storage.GithubSocialStorage'
 
 LANGUAGE_CODE = 'en-us'
 
