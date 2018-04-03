@@ -1,13 +1,16 @@
-from django.contrib.auth.admin import UserAdmin
 from django.contrib.admin import ModelAdmin
+from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import ugettext_lazy as _
+
 from common.site import register
 from users.models import GithubUser
+
 from .models import User
 
 
 @register(User)
 class CustomUserAdmin(UserAdmin):
+
     list_display = ('id', 'email', 'username', 'created', 'modified')
     list_filter = ('is_active', 'is_staff', 'groups')
     search_fields = ('email', 'username')

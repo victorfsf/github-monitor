@@ -1,8 +1,8 @@
 import re
 
+from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.core import validators
-from django.conf import settings
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
@@ -20,7 +20,7 @@ class User(AbstractBaseUser, PermissionsMixin, IndexedTimeStampedModel):
         max_length=255, unique=True,
         validators=[
             validators.RegexValidator(
-                re.compile('^[\w.@+-]+$'),
+                re.compile(r'^[\w.@+-]+$'),
                 'O nome de usuário só pode conter letras, digitos ou os '
                 'seguintes caracteres: @/./+/-/_', 'invalid'
             )
@@ -51,7 +51,7 @@ class User(AbstractBaseUser, PermissionsMixin, IndexedTimeStampedModel):
 
 
 class GithubUser(AbstractUserSocialAuth, IndexedTimeStampedModel):
-    user = models.ForeignKey(
+    user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         related_name='github',
         on_delete=models.CASCADE

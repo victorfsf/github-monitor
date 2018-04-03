@@ -6,12 +6,11 @@ from common.models import IndexedTimeStampedModel
 
 class Repository(IndexedTimeStampedModel):
 
-    created_by = models.ForeignKey('users.User', verbose_name=_('created by'))
-    name = models.CharField(_('name'), max_length=100)
-    owner = models.ForeignKey(
-        'users.GithubUser',
-        verbose_name=_('owner')
+    users = models.ManyToManyField(
+        'users.User', related_name='repositories'
     )
+    name = models.CharField(max_length=100)
+    owner = models.CharField(max_length=255)
 
     def __str__(self):
         return f'{self.owner}/{self.name}'
@@ -23,22 +22,19 @@ class Repository(IndexedTimeStampedModel):
 
 class Commit(IndexedTimeStampedModel):
 
-    created_by = models.ForeignKey('users.User', verbose_name=_('created by'))
     message = models.TextField(_('message'))
     sha = models.CharField(_('SHA'), max_length=40)
     html_url = models.URLField(_('HTML Url'))
     date = models.DateTimeField(_('date'))
+    author = models.CharField(max_length=255)
     repository = models.ForeignKey(
         'monitor.Repository',
+        related_name='commits',
         verbose_name=_('repository')
-    )
-    author = models.ForeignKey(
-        'users.GithubUser',
-        verbose_name=_('author')
     )
 
     def __str__(self):
-        return f'{self.sha} - {self.author_login}'
+        return f'{self.sha} - {self.author}'
 
     class Meta:
         verbose_name = 'Commit'
