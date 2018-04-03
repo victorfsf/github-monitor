@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'webpack_loader',
     'import_export',
     'social_django',
+    'rest_framework',
 
     'common',
     'users',
@@ -93,6 +94,12 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    )
+}
 
 AUTHENTICATION_BACKENDS = [
     'social_core.backends.github.GithubOAuth2',

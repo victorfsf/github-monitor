@@ -1,6 +1,7 @@
+from functools import partial
+
 from django.contrib.admin import AdminSite
 from django.contrib.admin import register as _register
-from functools import partial
 
 
 class GithubMonitorAdminSite(AdminSite):
