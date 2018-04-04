@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'webpack_loader',
     'import_export',
     'social_django',
+    'rest_framework',
 
     'common',
     'users',
@@ -94,22 +95,30 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    )
+}
+
 AUTHENTICATION_BACKENDS = [
     'social_core.backends.github.GithubOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 ]
 
-LOGIN_URL = 'login'
+LOGIN_URL = 'users:login'
 
-LOGOUT_URL = 'logout'
+LOGOUT_URL = 'users:logout'
 
-LOGIN_REDIRECT_URL = 'admin:index'
+LOGIN_REDIRECT_URL = 'common:index'
 
 SOCIAL_AUTH_GITHUB_KEY = 'b977200f1c3614415d94'
 
 SOCIAL_AUTH_GITHUB_SECRET = 'c7bf5991dba288e71263a8908bc54a5fcda52bd7'
 
-SOCIAL_AUTH_GITHUB_SCOPE = ['user:email', 'user:username', 'user:name', 'user:access_token']
+SOCIAL_AUTH_GITHUB_SCOPE = [
+    'user:email', 'user:username', 'user:name', 'user:access_token'
+]
 
 SOCIAL_AUTH_STORAGE = 'users.storage.GithubSocialStorage'
 

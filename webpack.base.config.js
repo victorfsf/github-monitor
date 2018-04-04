@@ -1,6 +1,7 @@
-var path = require('path');
-var nodeModulesDir = path.resolve(__dirname, 'node_modules');
-var BundleTracker = require('webpack-bundle-tracker');
+const path = require('path');
+const BundleTracker = require('webpack-bundle-tracker');
+
+const nodeModulesDir = path.resolve(__dirname, 'node_modules');
 
 module.exports = [{
   entry: [
@@ -34,7 +35,7 @@ module.exports = [{
 }, {
   context: __dirname,
   entry: [
-    // defined in local or prod
+    'font-awesome/scss/font-awesome.scss',
   ],
   output: {
     // defined in local or prod
@@ -59,13 +60,17 @@ module.exports = [{
         ],
       },
       {
-        test: /\.(svg)(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url-loader?limit=100000',
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        loader: [
+          'file-loader?name=images/[name].[ext]',
+          'image-webpack-loader?bypassOnDebug',
+        ],
       },
       {
-        test: /\.(jpg|png)?$/,
-        loaders: [
-          'file-loader?name=i-[hash].[ext]',
+        test: /font-awesome\.config\.js/,
+        loader: [
+          { loader: 'style-loader' },
+          { loader: 'font-awesome-loader' },
         ],
       },
     ],

@@ -24,7 +24,7 @@ class Commit(IndexedTimeStampedModel):
 
     message = models.TextField(_('message'))
     sha = models.CharField(_('SHA'), max_length=40)
-    html_url = models.URLField(_('HTML Url'))
+    url = models.URLField(_('GitHub Url'))
     date = models.DateTimeField(_('date'))
     author = models.CharField(max_length=255)
     repository = models.ForeignKey(

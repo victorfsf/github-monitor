@@ -33,6 +33,8 @@ pylint:
     - invalid-name
     - no-self-use
     - no-member
+    - abstract-method
+    - too-many-ancestors
   options:
     max-line-length: 100
 
