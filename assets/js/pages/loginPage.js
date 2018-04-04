@@ -1,14 +1,10 @@
 import React from 'react';
-import Urls from 'utils/urls';
-import NavBar from '../app/components';
+import { LoginForm } from 'app/components';
+import { Urls } from 'utils';
+
 
 const LoginPage = () => (
-  <div>
-    <NavBar />
-    <div className="container login">
-      hello world
-    </div>
-  </div>
+  <LoginForm loginUrl={Urls['oauth:begin']('github')} />
 );
 
 export default LoginPage;

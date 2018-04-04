@@ -1,13 +1,22 @@
 nav {
     border-bottom: 2px solid rgb(247, 247, 247);
+    height: 60px;
+    display:table-cell;
     .fa-2x {
         vertical-align: middle;
+    }
+    .logout-link,
+    .logout-link:visited {
+        color: #333;
+    }
+    .logout-link:hover,
+    .logout-link:active,
+    .logout-link:focus {
+        color: #666;
     }
 }
 
 nav.navbar.navbar-light {
-    padding-top: .1em;
-    padding-bottom: .1em;
     .navbar-brand {
         color: #333;
         font-weight: 600;
