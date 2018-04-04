@@ -1,5 +1,4 @@
 from rest_framework import serializers
-from rest_framework.fields import CurrentUserDefault
 
 from monitor.models import Commit, Repository
 
@@ -24,17 +23,24 @@ class CommitSerializer(serializers.ModelSerializer):
 class RepositorySerializer(serializers.ModelSerializer):
     commits = CommitSerializer(many=True)
 
-    def create(self, validated_data):
-        user = CurrentUserDefault()
+    def create_or_update(self, validated_data, instance=None):
         commits = validated_data.pop('commits', [])
-        repo, _ = Repository.objects.get_or_create(**validated_data)
+        if not instance:
+            instance, _ = Repository.objects.get_or_create(
+                **validated_data
+            )
         if 'request' in self.context:
-            user.set_context(self)
             request = self.context.get('request')
-            repo.users.add(request.user)
+            instance.users.add(request.user)
         for commit in commits:
-            Commit.objects.get_or_create(**commit)
-        return repo
+            Commit.objects.get_or_create(repository=instance, **commit)
+        return instance
+
+    def update(self, instance, validated_data):
+        return self.create_or_update(validated_data, instance=instance)
+
+    def create(self, validated_data):
+        return self.create_or_update(validated_data)
 
     class Meta:
         model = Repository
