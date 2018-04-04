@@ -8,8 +8,7 @@ class TestLogin(TestCaseUtils):
     def test_user_is_authenticated(self):
         response = self.auth_client.get(self.reverse('users:login'))
         self.assertResponse302(response)
-        # TODO: Redirect to the main page instead
-        self.assertEqual(response.url, self.reverse('admin:index'))
+        self.assertEqual(response.url, self.reverse('common:index'))
 
     def test_user_is_not_authenticated(self):
         client = Client()

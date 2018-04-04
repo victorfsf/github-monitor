@@ -106,11 +106,11 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
 
-LOGIN_URL = 'login'
+LOGIN_URL = 'users:login'
 
-LOGOUT_URL = 'logout'
+LOGOUT_URL = 'users:logout'
 
-LOGIN_REDIRECT_URL = 'admin:index'
+LOGIN_REDIRECT_URL = 'common:index'
 
 SOCIAL_AUTH_GITHUB_KEY = 'b977200f1c3614415d94'
 
