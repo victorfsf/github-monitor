@@ -1,7 +1,7 @@
 import re
 
 from django.conf import settings
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, UserManager
 from django.core import validators
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
@@ -9,8 +9,6 @@ from django.utils.translation import ugettext_lazy as _
 from social_django.models import AbstractUserSocialAuth
 
 from common.models import IndexedTimeStampedModel
-
-from .managers import UserManager
 
 
 class User(AbstractBaseUser, PermissionsMixin, IndexedTimeStampedModel):
