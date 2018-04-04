@@ -4,4 +4,6 @@ from django.shortcuts import render
 
 @login_required
 def app_view(request):
-    return render(request, 'common/index.html')
+    response = render(request, 'common/index.html')
+    # TODO: response.set_cookie
+    return response
