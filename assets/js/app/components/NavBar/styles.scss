@@ -1,0 +1,15 @@
+nav {
+    border-bottom: 2px solid rgb(247, 247, 247);
+    .fa-2x {
+        vertical-align: middle;
+    }
+}
+
+nav.navbar.navbar-light {
+    padding-top: .1em;
+    padding-bottom: .1em;
+    .navbar-brand {
+        color: #333;
+        font-weight: 600;
+    }
+}

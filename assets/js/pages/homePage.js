@@ -1,6 +1,9 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
-ReactDOM.render(
-  <div />, document.getElementById('react-app'),
+const HomePage = () => (
+  <div>
+    Hello World
+  </div>
 );
+
+export default HomePage;
