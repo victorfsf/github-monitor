@@ -9,7 +9,7 @@ const NavBar = () => (
       <a className="navbar-brand" href="">
         <i className="fa fa-2x fa-github align-middle" />
         <span className="align-middle pl-2">
-          GitHub Monitor
+          Github Monitor
         </span>
       </a>
       <a className="logout-link" href={Urls['users:logout']()}>
