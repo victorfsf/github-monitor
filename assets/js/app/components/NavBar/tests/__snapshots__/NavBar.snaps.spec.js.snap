@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NavBar Renders with url 1`] = `
+<nav
+  className="navbar navbar-light bg-white"
+>
+  <div
+    className="container"
+  >
+    <a
+      className="navbar-brand"
+      href=""
+    >
+      <i
+        className="fa fa-2x fa-github align-middle"
+      />
+      <span
+        className="align-middle pl-2"
+      >
+        Github Monitor
+      </span>
+    </a>
+    <a
+      className="logout-link"
+      href="/logout/url/"
+    >
+      <i
+        className="fa fa-sign-out"
+      />
+       Logout
+    </a>
+  </div>
+</nav>
+`;

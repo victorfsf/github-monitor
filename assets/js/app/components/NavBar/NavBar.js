@@ -1,9 +1,9 @@
 import React from 'react';
-import Urls from 'utils/urls';
+import PropTypes from 'prop-types';
 import './styles.scss';
 
 
-const NavBar = () => (
+const NavBar = props => (
   <nav className="navbar navbar-light bg-white">
     <div className="container">
       <a className="navbar-brand" href="">
@@ -12,11 +12,15 @@ const NavBar = () => (
           Github Monitor
         </span>
       </a>
-      <a className="logout-link" href={Urls['users:logout']()}>
+      <a className="logout-link" href={props.logoutUrl}>
         <i className="fa fa-sign-out" /> Logout
       </a>
     </div>
   </nav>
 );
+
+NavBar.propTypes = {
+  logoutUrl: PropTypes.string.isRequired,
+};
 
 export default NavBar;
