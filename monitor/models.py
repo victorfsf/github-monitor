@@ -11,6 +11,7 @@ class Repository(IndexedTimeStampedModel):
     )
     name = models.CharField(max_length=100)
     owner = models.CharField(max_length=255)
+    hook = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
         return f'{self.owner}/{self.name}'

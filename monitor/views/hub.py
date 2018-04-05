@@ -11,7 +11,7 @@ from monitor.decorators import hub_signature_required
 class HubWebhookView(View):
 
     def post(self, request, *args, **kwargs):
-        # TODO: Add new commits
+        # TODO: create new commits
         return JsonResponse({'ok': True})
 
 
