@@ -12,4 +12,4 @@ testreset:
 	pipenv run python manage.py test $(ARG) --parallel
 
 coverage:
-	pipenv run coverage run --source='.' manage.py test && coverage html
+	pipenv run coverage run --source='.' manage.py test $(ARG) && coverage html

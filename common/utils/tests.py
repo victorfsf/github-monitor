@@ -11,12 +11,17 @@ class TestCaseUtils(TestCase):
         self.user = mommy.prepare('users.User', username='test_username')
         self.user.set_password(self._user_password)
         self.user.save()
+        self.github_user = mommy.make('users.GithubUser', user=self.user)
 
         self.auth_client = Client()
         self.auth_client.login(
             username=self.user.username,
             password=self._user_password
         )
+
+    def tearDown(self):
+        self.github_user.delete()
+        self.user.delete()
 
     def reverse(self, name, *args, **kwargs):
         """ Reverse a url,
