@@ -55,6 +55,9 @@ class GithubUser(AbstractUserSocialAuth, IndexedTimeStampedModel):
         on_delete=models.CASCADE
     )
 
+    def get_access_token(self):  # pylint: disable=arguments-differ
+        return super().get_access_token(strategy=None)
+
     def __str__(self):
         return self.user.username
 

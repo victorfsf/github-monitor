@@ -17,6 +17,8 @@ SITE_ID = 1
 
 SECURE_HSTS_PRELOAD = True
 
+HUB_SECRET = config('HUB_SECRET', default='hub-secret')
+
 DEBUG = True
 
 ADMINS = (
@@ -122,7 +124,7 @@ SOCIAL_AUTH_GITHUB_KEY = 'b977200f1c3614415d94'
 SOCIAL_AUTH_GITHUB_SECRET = 'c7bf5991dba288e71263a8908bc54a5fcda52bd7'
 
 SOCIAL_AUTH_GITHUB_SCOPE = [
-    'user:email', 'repo'
+    'user:email', 'repo', 'admin:repo_hook'
 ]
 
 SOCIAL_AUTH_STORAGE = 'users.storage.GithubSocialStorage'

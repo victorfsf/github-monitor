@@ -22,15 +22,14 @@ class Repository(IndexedTimeStampedModel):
 
 class Commit(IndexedTimeStampedModel):
 
-    message = models.TextField(_('message'))
+    message = models.TextField()
     sha = models.CharField(_('SHA'), max_length=40)
     url = models.URLField(_('GitHub Url'))
     date = models.DateTimeField(_('date'))
     author = models.CharField(max_length=255)
     repository = models.ForeignKey(
         'monitor.Repository',
-        related_name='commits',
-        verbose_name=_('repository')
+        related_name='commits'
     )
 
     def __str__(self):
