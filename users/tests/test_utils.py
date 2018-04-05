@@ -1,6 +1,7 @@
-from django.test import TestCase
-from users.utils import login_redirect
 from django.core.urlresolvers import reverse
+from django.test import TestCase
+
+from users.utils import login_redirect
 
 
 class TestLoginRedirect(TestCase):

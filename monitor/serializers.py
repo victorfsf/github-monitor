@@ -1,3 +1,5 @@
+from django.db.models.query import QuerySet
+
 from rest_framework import serializers
 
 from monitor.models import Commit, Repository
@@ -6,7 +8,8 @@ from monitor.models import Commit, Repository
 class OrderByDateSerializer(serializers.ListSerializer):
 
     def to_representation(self, data):
-        data = data.order_by('-date')
+        if isinstance(data, QuerySet):
+            data = data.order_by('-date')
         return super().to_representation(data)
 
 
@@ -33,6 +36,8 @@ class RepositorySerializer(serializers.ModelSerializer):
             request = self.context.get('request')
             instance.users.add(request.user)
         for commit in commits:
+            # Guarantees that the instance's ID can't be changed manually
+            commit.pop('id', None)
             Commit.objects.get_or_create(repository=instance, **commit)
         return instance
 

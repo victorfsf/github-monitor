@@ -88,3 +88,7 @@ LOGGING = {
 }
 
 JS_REVERSE_JS_MINIFY = False
+
+REST_FRAMEWORK['DEFAULT_AUTHENTICATION_CLASSES'] += (
+    'rest_framework.authentication.BasicAuthentication',
+)

@@ -1,12 +1,13 @@
 import os
 
 from django.apps import apps
-from decouple import config
+
+import decouple
 from celery import Celery
 
 
 os.environ.setdefault(
-    'DJANGO_SETTINGS_MODULE', config('DJANGO_SETTINGS_MODULE')
+    'DJANGO_SETTINGS_MODULE', decouple.config('DJANGO_SETTINGS_MODULE')
 )
 
 app = Celery('github_monitor_tasks')

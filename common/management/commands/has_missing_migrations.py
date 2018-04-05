@@ -13,7 +13,7 @@ from django.db.utils import OperationalError
 class Command(BaseCommand):
     """
     Detect if any apps have missing migration files
-    (not necessaily applied though)
+    (not necessarily applied though)
     Based on: https://gist.github.com/nealtodd/a8f87b0d95e73eb482c5
     """
     help = "Detect if any apps have missing migration files"
@@ -37,6 +37,7 @@ class Command(BaseCommand):
                 executor = MigrationExecutor(connections[db])
             except OperationalError:
                 sys.exit("Unable to check migrations: cannot connect to database\n")
+                return
 
             autodetector = MigrationAutodetector(
                 executor.loader.project_state(),

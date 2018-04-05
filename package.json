@@ -61,6 +61,7 @@
     "js-cookie": "^2.2.0",
     "lodash": "^4.17.4",
     "marked": "^0.3.6",
+    "moment": "^2.22.0",
     "node-sass": "^4.8.3",
     "popper.js": "^1.12.9",
     "postcss": "^6.0.3",

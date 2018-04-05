@@ -27,15 +27,18 @@ class TestOrderByDateSerializer(TestCase):
         )
         self.assertEqual(ordered, expected)
 
-    def test_to_representation_error(self):
+    def test_to_representation_not_queryset(self):
         commits = [{
-            'message': 'test', 'sha': '1234', 'url': 'https://github.com/',
+            'id': i, 'message': f'test', 'sha': '1234',
+            'url': 'https://github.com/',
             'date': timezone.now(), 'author': 'me'
-        }]
+        } for i in range(10)]
         child = CommitSerializer()
         serializer = self.serializer_class(child=child)
-        with self.assertRaises(AttributeError):
-            serializer.to_representation(commits)
+
+        expected = [c['id'] for c in commits]
+        ordered = [c['id'] for c in serializer.to_representation(commits)]
+        self.assertEqual(expected, ordered)
 
     def test_is_valid(self):
         serializer = self.serializer_class(data=[], child=CommitSerializer())

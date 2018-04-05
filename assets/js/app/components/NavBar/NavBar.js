@@ -13,7 +13,7 @@ const NavBar = () => (
         </span>
       </a>
       <a className="logout-link" href={Urls['users:logout']()}>
-        <i className="fa fa-2x fa-sign-out" />
+        <i className="fa fa-sign-out" /> Logout
       </a>
     </div>
   </nav>
