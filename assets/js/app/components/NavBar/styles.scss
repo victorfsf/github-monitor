@@ -1,7 +1,7 @@
 nav {
-    border-bottom: 2px solid rgb(247, 247, 247);
-    height: 60px;
+    border-bottom: 2px solid rgb(242, 242, 242);
     display:table-cell;
+    font-size: .9em;
     .fa-2x {
         vertical-align: middle;
     }
@@ -21,5 +21,6 @@ nav.navbar.navbar-light {
     .navbar-brand {
         color: #333;
         font-weight: 600;
+        font-size: 1.2em;
     }
 }

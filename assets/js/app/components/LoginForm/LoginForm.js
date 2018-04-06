@@ -13,7 +13,7 @@ const LoginForm = props => (
             Github Monitor
           </div>
           <div className="description">
-            Monitor any repository commits
+            {"Monitor your repositories' commits"}
           </div>
         </div>
         <a href={props.loginUrl} className="btn btn-dark">

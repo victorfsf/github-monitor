@@ -24,7 +24,7 @@ exports[`LoginForm Form renders with url 1`] = `
         <div
           className="description"
         >
-          Monitor any repository commits
+          Monitor your repositories' commits
         </div>
       </div>
       <a

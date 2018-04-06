@@ -4,5 +4,5 @@ from common import views
 
 
 urlpatterns = [
-    url(r'^$', views.app_view, name='index')
+    url(r'^', views.app_view, name='index')
 ]

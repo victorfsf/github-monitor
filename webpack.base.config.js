@@ -60,10 +60,13 @@ module.exports = [{
         ],
       },
       {
-        test: /\.(jpe?g|png|gif|svg)$/i,
-        loader: [
-          'file-loader?name=images/[name].[ext]',
-          'image-webpack-loader?bypassOnDebug',
+        test: /\.(svg)(\?v=\d+\.\d+\.\d+)?$/,
+        loader: 'url-loader?limit=100000',
+      },
+      {
+        test: /\.(jpg|png)?$/,
+        loaders: [
+          'file-loader?name=i-[hash].[ext]',
         ],
       },
       {

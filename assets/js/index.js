@@ -1,17 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import LoginPage from 'pages/loginPage';
-import HomePage from 'pages/homePage';
+import Routes from 'routes';
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
+import configureStore from 'app/configureStore';
 
-let component;
-let el;
 
 if (document.getElementById('react-login') !== null) {
-  [component, el] = [<LoginPage />, 'react-login'];
+  ReactDOM.render(
+    <LoginPage />,
+    document.getElementById('react-login'),
+  );
 } else {
-  [component, el] = [<HomePage />, 'react-app'];
+  const store = configureStore();
+
+  ReactDOM.render(
+    <Provider store={store}>
+      <BrowserRouter>
+        <Routes />
+      </BrowserRouter>
+    </Provider>,
+    document.getElementById('react-app'),
+  );
 }
 
-ReactDOM.render(
-  component, document.getElementById(el),
-);

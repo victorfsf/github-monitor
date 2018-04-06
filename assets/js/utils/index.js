@@ -1,5 +1,7 @@
 import Urls from './urls';
+import connectRouter from './connect';
 
 export {
-  Urls, // eslint-disable-line import/prefer-default-export
+  Urls,
+  connectRouter,
 };
