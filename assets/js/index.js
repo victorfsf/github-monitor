@@ -4,7 +4,7 @@ import LoginPage from 'pages/loginPage';
 import Routes from 'routes';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import configureStore from 'app/configureStore';
+import configureStore from 'redux/configureStore';
 
 
 if (document.getElementById('react-login') !== null) {

@@ -28,6 +28,8 @@ class Commit(IndexedTimeStampedModel):
     url = models.URLField(_('GitHub Url'))
     date = models.DateTimeField(_('date'))
     author = models.CharField(max_length=255)
+    login = models.CharField(max_length=255, null=True, blank=True)
+
     repository = models.ForeignKey(
         'monitor.Repository',
         related_name='commits'
