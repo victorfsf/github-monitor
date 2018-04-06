@@ -4,7 +4,8 @@ module.exports = {
     "extends": "airbnb",
     "rules": {
         "jsx-a11y/": 0,
-        "react/jsx-filename-extension": 0
+        "react/jsx-filename-extension": 0,
+        "max-len": ["error", 100]
     },
     "env": {
         "es6": true,

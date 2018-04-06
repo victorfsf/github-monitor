@@ -3,7 +3,11 @@ import PropTypes from 'prop-types';
 import { NavBar, Box, RepoField, Spinner } from 'app/components';
 import Urls from 'utils/urls';
 import { connectRouter } from 'utils';
-import { fetchCommitsIfNeeded, selectRepository, RECEIVE_COMMITS } from 'redux/actions/github';
+import {
+  fetchCommitsIfNeeded,
+  selectRepository,
+  RECEIVE_COMMITS,
+} from 'redux/actions/github';
 
 
 class HomePage extends React.Component {
