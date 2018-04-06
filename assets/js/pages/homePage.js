@@ -3,14 +3,20 @@ import PropTypes from 'prop-types';
 import { NavBar, Box, RepoField, Spinner } from 'app/components';
 import Urls from 'utils/urls';
 import { connectRouter } from 'utils';
-import { fetchCommitsIfNeeded, selectRepository } from 'redux/actions/github';
+import { fetchCommitsIfNeeded, selectRepository, RECEIVE_COMMITS } from 'redux/actions/github';
 
 
 class HomePage extends React.Component {
 
   handleSubmit(event) {
-    const { dispatch, selectedRepository } = this.props;
-    dispatch(fetchCommitsIfNeeded(selectedRepository));
+    const { dispatch, selectedRepository, history } = this.props;
+    dispatch(fetchCommitsIfNeeded(selectedRepository)).then(
+      (action) => {
+        if (action.type === RECEIVE_COMMITS) {
+          history.push(`/repo/${action.repo}`);
+        }
+      },
+    );
     event.preventDefault();
   }
 
@@ -51,6 +57,7 @@ HomePage.propTypes = {
   errorMessage: PropTypes.string,
   selectedRepository: PropTypes.string,
   dispatch: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,  // eslint-disable-line react/forbid-prop-types
 };
 
 
