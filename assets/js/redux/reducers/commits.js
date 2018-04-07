@@ -25,6 +25,8 @@ const selectedCommits = (state = {
         errorMessage: '',
         lastUpdate: action.finishedAt,
         commits: action.commits,
+        nextPage: action.nextPage,
+        prevPage: action.prevPage,
       });
     default:
       return state;

@@ -36,7 +36,7 @@ const Commit = (props) => {
             </div>
             <div className="col-4">
               <small className="pull-right text-muted">
-                {formatDate(message.date)}
+                {formatDate(payload.date)}
               </small>
             </div>
           </div>

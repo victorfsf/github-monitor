@@ -1,17 +1,19 @@
+import Box from './Box';
 import Commit from './Commit';
 import CommitHeader from './CommitHeader';
 import Container from './Container';
-import RepoField from './RepoField';
 import LoginForm from './LoginForm';
-import Box from './Box';
+import RepoField from './RepoField';
 import Spinner from './Spinner';
+import Pagination from './Pagination';
 
 export {
-  LoginForm,
-  Container,
   Box,
-  RepoField,
-  Spinner,
   Commit,
   CommitHeader,
+  Container,
+  LoginForm,
+  RepoField,
+  Spinner,
+  Pagination,
 };

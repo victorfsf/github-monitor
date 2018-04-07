@@ -10,3 +10,17 @@ body {
     float: none;
     margin: 0 auto;
 }
+
+
+.btn.btn-link, a, .page-link {
+    color: $link-color;
+}
+
+.btn.btn-link:hover, .page-link:hover, a:hover, a:focus, a:active {
+    color: $link-hover-color;
+    text-decoration: none;
+}
+
+.pagination, small {
+    font-family: 'Open Sans', sans-serif;
+}

@@ -59,11 +59,11 @@ class DjangoAPI {
     ).then(json => (Object.assign({ ok: true }, json)));
   }
 
-  static getCommits(repo = null) {
+  static getCommits(params, repo = null) {
     const urlFn = Urls['monitor:commit-list'];
     const url = repo ? urlFn(...repo.split('/')) : urlFn();
     return fetch(
-      url, {
+      `${url}${params}`, {
         credentials: 'same-origin',
       },
     ).then(

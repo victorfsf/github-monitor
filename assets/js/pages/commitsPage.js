@@ -1,9 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Container, Commit, CommitHeader, Spinner } from 'app/components';
 import { connectRouter } from 'utils';
 import { fetchCommitsIfNeeded } from 'redux/actions/commits';
 import commitPropTypes from 'types';
+import {
+  Container,
+  Commit,
+  CommitHeader,
+  Spinner,
+  Pagination,
+} from 'app/components';
 
 
 class CommitsPage extends React.Component {
@@ -24,13 +30,27 @@ class CommitsPage extends React.Component {
     dispatch(fetchCommitsIfNeeded());
   }
 
+  onClickPrev() {
+    const { dispatch, prevPage, history } = this.props;
+    dispatch(fetchCommitsIfNeeded(prevPage, true));
+    history.push({ search: prevPage });
+  }
+
+  onClickNext() {
+    const { dispatch, nextPage, history } = this.props;
+    dispatch(fetchCommitsIfNeeded(nextPage, true));
+    history.push({ search: nextPage });
+  }
+
   handleRefresh() {
     const { dispatch } = this.props;
-    dispatch(fetchCommitsIfNeeded(true));
+    dispatch(fetchCommitsIfNeeded(document.location.search, true));
   }
 
   render() {
-    const { commits, isFetching, lastUpdate } = this.props;
+    const {
+      commits, isFetching, lastUpdate, prevPage, nextPage,
+    } = this.props;
     return (
       <Container breadcrumbs={this.state.breadcrumbs}>
         <CommitHeader
@@ -42,6 +62,12 @@ class CommitsPage extends React.Component {
             <Commit key={commit.id} payload={commit} />
           ))
         }
+        <Pagination
+          onClickNext={() => this.onClickNext()}
+          onClickPrev={() => this.onClickPrev()}
+          next={nextPage == null}
+          prev={prevPage == null}
+        />
       </Container>
     );
   }
@@ -50,9 +76,12 @@ class CommitsPage extends React.Component {
 
 CommitsPage.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,  // eslint-disable-line react/forbid-prop-types
   commits: PropTypes.arrayOf(commitPropTypes),
   lastUpdate: PropTypes.string,
   isFetching: PropTypes.bool,
+  nextPage: PropTypes.string,
+  prevPage: PropTypes.string,
 };
 
 
@@ -60,32 +89,39 @@ CommitsPage.defaultProps = {
   commits: [],
   lastUpdate: null,
   isFetching: false,
+  nextPage: null,
+  prevPage: null,
 };
 
 
 const mapStateToProps = (state) => {
-  const { selectedCommits, selectedRepository } = state;
+  const { selectedCommits } = state;
   const {
     isFetching,
     didInvalidate,
     errorMessage,
     commits,
     lastUpdate,
+    nextPage,
+    prevPage,
   } = selectedCommits || {
     isFetching: false,
     didInvalidate: false,
     errorMessage: '',
     commits: [],
     lastUpdate: null,
+    nextPage: null,
+    prevPage: null,
   };
 
   return {
     isFetching,
     didInvalidate,
     errorMessage,
-    selectedRepository,
     commits,
     lastUpdate,
+    nextPage,
+    prevPage,
   };
 };
 

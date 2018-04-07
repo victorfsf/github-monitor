@@ -10,18 +10,24 @@ const requestCommits = () => ({
 });
 
 
-const receiveCommits = commits => ({
+const receiveCommits = (commits, nextPage, prevPage) => ({
   type: RECEIVE_ALL_COMMITS,
   commits,
+  nextPage,
+  prevPage,
   finishedAt: new Date().toISOString(),
 });
 
 
-const fetchCommits = (repo = null) => (
+const fetchCommits = params => (
   (dispatch) => {
     dispatch(requestCommits());
-    return DjangoAPI.getCommits(repo).then(
-      response => dispatch(receiveCommits(response)),
+    return DjangoAPI.getCommits(params).then(
+      (response) => {
+        const next = response.next !== null ? new URL(response.next).search : null;
+        const prev = response.previous !== null ? new URL(response.previous).search : null;
+        return dispatch(receiveCommits(response.results, next, prev));
+      },
     );
   }
 );
@@ -33,11 +39,13 @@ const shouldFetchCommits = (state) => {
 };
 
 
-export const fetchCommitsIfNeeded = (force = false) => (
+export const fetchCommitsIfNeeded = (params = null, force = false) => (
   (dispatch, getState) => {
     const state = getState();
     if (force || shouldFetchCommits(state)) {
-      return dispatch(fetchCommits());
+      return dispatch(fetchCommits(
+        params === null ? document.location.search : params,
+      ));
     }
     return Promise.resolve(
       dispatch(receiveCommits(state.commits)),
