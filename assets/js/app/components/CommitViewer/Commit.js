@@ -50,6 +50,9 @@ const Commit = (props) => {
               <a href={userProfileUrl} target="blank_">
                 {payload.author}
               </a>
+              <span className="pl-1 text-muted">
+                {payload.login && `[${payload.login}]`}
+              </span>
               <i className="fa fa-code-fork pl-2 pr-1" />
               {payload.branch}
             </div>
@@ -64,7 +67,7 @@ const Commit = (props) => {
           <small className="row">
             <div className="col-12 pt-sm-2 pt-md-0">
               <i className="fa fa-code pr-1" />
-              <a href={payload.url}>{payload.sha}</a>
+              <a href={payload.url} target="blank_">{payload.sha}</a>
             </div>
           </small>
         </div>
