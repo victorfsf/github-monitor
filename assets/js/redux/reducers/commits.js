@@ -7,7 +7,6 @@ import {
 const selectedCommits = (state = {
   isFetching: false,
   didInvalidate: false,
-  isFinished: false,
   errorMessage: '',
 }, action) => {
   switch (action.type) {
@@ -16,12 +15,13 @@ const selectedCommits = (state = {
         isFetching: true,
         didInvalidate: false,
         errorMessage: '',
+        count: 0,
+        lastUpdate: null,
       });
     case RECEIVE_COMMITS:
       return Object.assign({}, state, {
         isFetching: false,
         didInvalidate: false,
-        isFinished: true,
         errorMessage: '',
         lastUpdate: action.finishedAt,
         commits: action.commits,

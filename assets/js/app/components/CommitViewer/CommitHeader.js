@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Box from 'app/components/Box';
+import { GITHUB_URL } from 'constants/github';
 import { formatDate } from 'utils';
 
 
@@ -17,9 +18,13 @@ const CommitHeader = props => (
           >
             <i className="fa fa-refresh" />
           </button>
-          <small className="text-muted">
-            {props.repo}
-          </small>
+          {props.repo && (
+            <small>
+              <a href={`${GITHUB_URL}${props.repo}`} target="blank_">
+                {props.repo}
+              </a>
+            </small>
+          )}
         </div>
         <div className="col-sm-12 col-md-6">
           <small className="float-md-right">
@@ -33,7 +38,7 @@ const CommitHeader = props => (
             Last Update: {
               props.lastUpdate ?
               formatDate(props.lastUpdate) :
-              '...'
+              'Loading...'
             }
           </small>
         </div>

@@ -9,7 +9,6 @@ import {
 const githubRequests = (state = {
   isFetching: false,
   didInvalidate: false,
-  isFinished: false,
   errorMessage: '',
 }, action) => {
   switch (action.type) {
@@ -24,9 +23,7 @@ const githubRequests = (state = {
       return Object.assign({}, state, {
         isFetching: false,
         didInvalidate: false,
-        isFinished: true,
         errorMessage: '',
-        lastUpdated: action.finishedAt,
       });
     case GITHUB_INVALIDATE_REPOSITORY:
       return Object.assign({}, state, {

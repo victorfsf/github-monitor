@@ -38,7 +38,7 @@ const fetchCommits = (params, repo) => (
 
 const shouldFetchCommits = (state) => {
   const request = state.selectedCommits;
-  return request.isFinished || !request.isFetching || request.didInvalidate;
+  return !request.isFetching || request.didInvalidate;
 };
 
 

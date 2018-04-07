@@ -104,7 +104,6 @@ const mapStateToProps = (state) => {
     didInvalidate: false,
     errorMessage: '',
   };
-
   return {
     isFetching,
     didInvalidate,

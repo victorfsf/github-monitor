@@ -5,7 +5,7 @@ import moment from 'moment';
 
 
 const injectBranch = (branch, commits) => (
-  commits.map(commit => Object.assign({ branch: branch.name }, commit))
+  commits.map(commit => Object.assign({}, { branch: branch.name }, commit))
 );
 
 

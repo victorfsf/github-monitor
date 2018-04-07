@@ -6,11 +6,16 @@ import { commitPropTypes } from 'types';
 import { formatDate } from 'utils';
 import { GITHUB_URL } from 'constants/github';
 import { Link } from 'react-router-dom';
+import './styles.scss';
 
 
 const Commit = (props) => {
   const { payload } = props;
+  if (!payload) {
+    return <Box />;
+  }
   const message = payload.message.split('\n', 1)[0];
+  const userProfileUrl = `${GITHUB_URL}${payload.login}`;
   const avatar = (
     <img
       src={payload.avatar || octocat}
@@ -29,31 +34,37 @@ const Commit = (props) => {
         ) : avatar}
         <div className="media-body">
           <div className="row">
-            <div className="col-8">
-              <h6 title={message}>
+            <div className="col-md-8 col-sm-12">
+              <span className="title" title={message}>
                 {message}
-              </h6>
+              </span>
             </div>
-            <div className="col-4">
-              <small className="pull-right text-muted">
+            <div className="col-md-4 col-sm-12">
+              <small className="float-md-right text-muted">
                 {formatDate(payload.date)}
               </small>
             </div>
           </div>
           <small className="row">
-            <div className="col-8">
-              {payload.author}
-              <i className="fa fa-code-fork px-2" />
+            <div className="col-md-8 col-sm-12 pt-xs-2 pt-sm-2 pt-md-0">
+              <a href={userProfileUrl} target="blank_">
+                {payload.author}
+              </a>
+              <i className="fa fa-code-fork pl-2 pr-1" />
               {payload.branch}
-              <i className="fa fa-angle-right px-2" />
-              <a href={payload.url}>{payload.sha}</a>
             </div>
-            <div className="col-4">
-              <span className="pull-right">
+            <div className="col-md-4 col-sm-12 pt-sm-2 pt-md-0">
+              <span className="float-md-right">
                 <Link to={`/commits/${payload.repository}`}>
                   {payload.repository}
                 </Link>
               </span>
+            </div>
+          </small>
+          <small className="row">
+            <div className="col-12 pt-sm-2 pt-md-0">
+              <i className="fa fa-code pr-1" />
+              <a href={payload.url}>{payload.sha}</a>
             </div>
           </small>
         </div>

@@ -1,10 +1,10 @@
 import GithubAPI from 'apis/github';
 import DjangoAPI from 'apis/django';
 
-export const GITHUB_REQUEST_REPOSITORY = 'REQUEST_REPOSITORY';
-export const GITHUB_REQUEST_COMMITS = 'REQUEST_COMMITS';
-export const GITHUB_FINISH_REQUEST = 'FINISH_REQUEST';
-export const GITHUB_INVALIDATE_REPOSITORY = 'INVALIDATE_REPOSITORY';
+export const GITHUB_REQUEST_REPOSITORY = 'GITHUB_REQUEST_REPOSITORY';
+export const GITHUB_REQUEST_COMMITS = 'GITHUB_REQUEST_COMMITS';
+export const GITHUB_FINISH_REQUEST = 'GITHUB_FINISH_REQUEST';
+export const GITHUB_INVALIDATE_REPOSITORY = 'GITHUB_INVALIDATE_REPOSITORY';
 
 
 export const requestRepository = repo => ({
@@ -21,7 +21,6 @@ const requestCommits = repo => ({
 
 const finishRequest = repo => ({
   type: GITHUB_FINISH_REQUEST,
-  finishedAt: Date.now(),
   repo,
 });
 
@@ -72,7 +71,7 @@ const fetchRepository = repo => (
 
 const shouldCreateCommits = (state) => {
   const request = state.githubRequests;
-  return request.isFinished || !request.isFetching || request.didInvalidate;
+  return !request.isFetching || request.didInvalidate;
 };
 
 
