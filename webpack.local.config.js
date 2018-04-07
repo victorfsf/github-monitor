@@ -1,7 +1,6 @@
 const autoprefixer = require('autoprefixer');
 const webpack = require('webpack');
 const baseConfig = require('./webpack.base.config');
-const SpritesmithPlugin = require('webpack-spritesmith');
 const BundleTracker = require('webpack-bundle-tracker');
 const path = require('path');
 
@@ -42,17 +41,6 @@ baseConfig[1].plugins = [
   new webpack.HotModuleReplacementPlugin(),
   new webpack.NamedModulesPlugin(),
   new webpack.NoEmitOnErrorsPlugin(),  // don't reload if there is an error
-  new SpritesmithPlugin({
-    src: {
-      cwd: path.resolve(__dirname, 'assets/images/'),
-      glob: '*.png',
-    },
-    target: {
-      image: path.resolve(__dirname, 'assets/images/spritesmith-generated/sprite.png'),
-      css: path.resolve(__dirname, 'assets/sass/vendor/spritesmith.scss'),
-    },
-    retina: '@2x',
-  }),
   new BundleTracker({
     filename: './webpack-stats.json',
   }),

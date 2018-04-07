@@ -18,10 +18,10 @@ class CommitSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Commit
-        # list_serializer_class = OrderByDateSerializer
+        list_serializer_class = OrderByDateSerializer
         fields = (
-            'id', 'message', 'sha', 'date', 'url',
-            'author', 'login', 'repository'
+            'id', 'message', 'sha', 'date', 'url', 'branch',
+            'author', 'login', 'repository', 'avatar'
         )
 
 

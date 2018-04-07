@@ -2,7 +2,6 @@ const autoprefixer = require('autoprefixer');
 const baseConfig = require('./webpack.base.config');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const SpritesmithPlugin = require('webpack-spritesmith');
 const BundleTracker = require('webpack-bundle-tracker');
 const path = require('path');
 
@@ -38,17 +37,6 @@ baseConfig[1].plugins = [
     'process.env': {
       NODE_ENV: JSON.stringify('production'),
     },
-  }),
-  new SpritesmithPlugin({
-    src: {
-      cwd: path.resolve(__dirname, 'assets/images/'),
-      glob: '*.png',
-    },
-    target: {
-      image: path.resolve(__dirname, 'assets/images/spritesmith-generated/sprite.png'),
-      css: path.resolve(__dirname, 'assets/sass/vendor/spritesmith.scss'),
-    },
-    retina: '@2x',
   }),
   new ExtractTextPlugin({ filename: '[name]-[hash].css', disable: false, allChunks: true }),
   new webpack.optimize.UglifyJsPlugin({ comments: false }),

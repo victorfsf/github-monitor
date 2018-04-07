@@ -3,6 +3,7 @@ body {
     background-color: $base-background-color;
     font-family: 'Montserrat', sans-serif;
     color: $base-color;
+    overflow-y:scroll;
 }
 
 .col-centered {

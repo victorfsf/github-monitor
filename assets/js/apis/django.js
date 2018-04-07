@@ -1,4 +1,5 @@
 import cookie from 'js-cookie';
+import { Urls } from 'utils';
 
 
 class DjangoAPI {
@@ -12,9 +13,11 @@ class DjangoAPI {
       url: c.html_url,
       login: c.author ? c.author.login : null,
       author: c.commit.author.name,
+      avatar: c.author ? c.author.avatar_url : null,
+      branch: c.branch,
     }));
     return fetch(
-      '/monitor/repos/', {
+      Urls['monitor:repository-list'](), {
         method: 'POST',
         body: JSON.stringify({
           owner,
@@ -36,6 +39,44 @@ class DjangoAPI {
       }
       return { ok: true };
     });
+  }
+
+  static getRepository(repo) {
+    return fetch(
+      Urls['monitor:repository-name-detail'](...repo.split('/')), {
+        credentials: 'same-origin',
+      },
+    ).then(
+      (response) => {
+        if (!response.ok) {
+          return {
+            ok: false,
+            message: 'Repository not found.',
+          };
+        }
+        return response.json();
+      },
+    ).then(json => (Object.assign({ ok: true }, json)));
+  }
+
+  static getCommits(repo = null) {
+    const urlFn = Urls['monitor:commit-list'];
+    const url = repo ? urlFn(...repo.split('/')) : urlFn();
+    return fetch(
+      url, {
+        credentials: 'same-origin',
+      },
+    ).then(
+      (response) => {
+        if (!response.ok) {
+          return {
+            ok: false,
+            message: 'An error occurred, please try again later.',
+          };
+        }
+        return response.json();
+      },
+    );
   }
 
 }

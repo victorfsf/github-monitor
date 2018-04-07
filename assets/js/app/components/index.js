@@ -1,3 +1,5 @@
+import Commit from './Commit';
+import CommitHeader from './CommitHeader';
 import Container from './Container';
 import RepoField from './RepoField';
 import LoginForm from './LoginForm';
@@ -10,4 +12,6 @@ export {
   Box,
   RepoField,
   Spinner,
+  Commit,
+  CommitHeader,
 };

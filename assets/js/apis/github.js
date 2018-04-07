@@ -4,6 +4,11 @@ import cookie from 'js-cookie';
 import moment from 'moment';
 
 
+const injectBranch = (branch, commits) => (
+  commits.map(commit => Object.assign({ branch: branch.name }, commit))
+);
+
+
 class GithubAPI {
 
   static getUrl(path, args = '') {
@@ -38,7 +43,9 @@ class GithubAPI {
           branch => (
             fetch(
               this.getUrl(`repos/${repo}/commits`, `sha=${branch.name}&since=${lastMonth}`),
-            ).then(commits => commits.json())
+            ).then(response => response.json()).then(
+              commits => injectBranch(branch, commits),
+            )
           ),
         ),
       ).then((responses) => {

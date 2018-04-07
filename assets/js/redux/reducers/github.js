@@ -1,32 +1,26 @@
 import {
-  SELECT_REPOSITORY,
-  REQUEST_REPOSITORY,
-  REQUEST_COMMITS,
-  FINISH_REQUEST,
-  INVALIDATE_REPOSITORY,
+  GITHUB_REQUEST_REPOSITORY,
+  GITHUB_REQUEST_COMMITS,
+  GITHUB_FINISH_REQUEST,
+  GITHUB_INVALIDATE_REPOSITORY,
 } from 'redux/actions/github';
 
 
-const commits = (state = {
+const githubRequests = (state = {
   isFetching: false,
   didInvalidate: false,
   isFinished: false,
   errorMessage: '',
 }, action) => {
   switch (action.type) {
-    case REQUEST_REPOSITORY:
-      return Object.assign({}, state, {
-        didInvalidate: false,
-        isFetching: true,
-        errorMessage: '',
-      });
-    case REQUEST_COMMITS:
+    case GITHUB_REQUEST_REPOSITORY:
+    case GITHUB_REQUEST_COMMITS:
       return Object.assign({}, state, {
         isFetching: true,
         didInvalidate: false,
         errorMessage: '',
       });
-    case FINISH_REQUEST:
+    case GITHUB_FINISH_REQUEST:
       return Object.assign({}, state, {
         isFetching: false,
         didInvalidate: false,
@@ -34,7 +28,7 @@ const commits = (state = {
         errorMessage: '',
         lastUpdated: action.finishedAt,
       });
-    case INVALIDATE_REPOSITORY:
+    case GITHUB_INVALIDATE_REPOSITORY:
       return Object.assign({}, state, {
         didInvalidate: true,
         isFetching: false,
@@ -46,32 +40,4 @@ const commits = (state = {
 };
 
 
-const githubRequests = (state = {}, action) => {
-  switch (action.type) {
-    case REQUEST_REPOSITORY:
-    case INVALIDATE_REPOSITORY:
-    case REQUEST_COMMITS:
-    case FINISH_REQUEST:
-      return Object.assign({}, state, {
-        [action.repo]: commits(state[action.repo], action),
-      });
-    default:
-      return state;
-  }
-};
-
-
-const selectedRepository = (state = null, action) => {
-  switch (action.type) {
-    case SELECT_REPOSITORY:
-      return action.repo;
-    default:
-      return state;
-  }
-};
-
-
-export {
-  githubRequests,
-  selectedRepository,
-};
+export default githubRequests;

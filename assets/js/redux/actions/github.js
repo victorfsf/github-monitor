@@ -1,40 +1,33 @@
 import GithubAPI from 'apis/github';
 import DjangoAPI from 'apis/django';
 
-export const SELECT_REPOSITORY = 'SELECT_REPOSITORY';
+export const GITHUB_REQUEST_REPOSITORY = 'REQUEST_REPOSITORY';
+export const GITHUB_REQUEST_COMMITS = 'REQUEST_COMMITS';
+export const GITHUB_FINISH_REQUEST = 'FINISH_REQUEST';
+export const GITHUB_INVALIDATE_REPOSITORY = 'INVALIDATE_REPOSITORY';
 
-export const REQUEST_REPOSITORY = 'REQUEST_REPOSITORY';
-export const REQUEST_COMMITS = 'REQUEST_COMMITS';
-export const FINISH_REQUEST = 'FINISH_REQUEST';
-export const INVALIDATE_REPOSITORY = 'INVALIDATE_REPOSITORY';
-
-
-export const selectRepository = repo => ({
-  type: SELECT_REPOSITORY,
-  repo,
-});
 
 export const requestRepository = repo => ({
-  type: REQUEST_REPOSITORY,
+  type: GITHUB_REQUEST_REPOSITORY,
   repo,
 });
 
 
 const requestCommits = repo => ({
-  type: REQUEST_COMMITS,
+  type: GITHUB_REQUEST_COMMITS,
   repo,
 });
 
 
 const finishRequest = repo => ({
-  type: FINISH_REQUEST,
+  type: GITHUB_FINISH_REQUEST,
   finishedAt: Date.now(),
   repo,
 });
 
 
 const invalidateRepository = (repo, message) => ({
-  type: INVALIDATE_REPOSITORY,
+  type: GITHUB_INVALIDATE_REPOSITORY,
   repo,
   message,
 });
@@ -70,37 +63,30 @@ const fetchRepository = repo => (
         if (response.ok === false) {
           return dispatch(invalidateRepository(repo, response.message));
         }
-        const fullName = response.full_name;
-        dispatch(selectRepository(fullName));
-        return dispatch(fetchCommits(fullName));
+        return dispatch(fetchCommits(response.full_name));
       },
     );
   }
 );
 
 
-const shouldCreateCommits = (state, repo) => {
-  const commits = state.commitsByRepo[repo];
-  if (!commits || commits.isFinished) {
-    return true;
-  }
-  if (commits.isFetching) {
-    return false;
-  }
-  return commits.didInvalidate;
+const shouldCreateCommits = (state) => {
+  const request = state.githubRequests;
+  return request.isFinished || !request.isFetching || request.didInvalidate;
 };
 
 
 export const createCommitsIfNeeded = repo => (
   (dispatch, getState) => {
     if (!repo) {
-      return dispatch(invalidateRepository(repo, 'This field is required.'));
+      return Promise.resolve(
+        dispatch(invalidateRepository(repo, 'This field is required.')),
+      );
     }
     const state = getState();
     if (shouldCreateCommits(state, repo)) {
       return dispatch(fetchRepository(repo));
     }
-    const { selectedRepository } = state;
-    return Promise.resolve(dispatch(finishRequest(selectedRepository)));
+    return Promise.resolve(dispatch(finishRequest()));
   }
 );

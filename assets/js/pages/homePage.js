@@ -4,8 +4,7 @@ import { Box, RepoField, Spinner, Container } from 'app/components';
 import { connectRouter } from 'utils';
 import {
   createCommitsIfNeeded,
-  selectRepository,
-  FINISH_REQUEST,
+  GITHUB_FINISH_REQUEST,
 } from 'redux/actions/github';
 
 
@@ -14,6 +13,7 @@ class HomePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      repositoryName: '',
       breadcrumbs: [{
         active: false,
         name: 'Commits',
@@ -23,28 +23,29 @@ class HomePage extends React.Component {
   }
 
   handleSubmit(event) {
-    const { dispatch, selectedRepository } = this.props;
+    const { dispatch } = this.props;
     event.preventDefault();
-    dispatch(createCommitsIfNeeded(selectedRepository)).then(
+    dispatch(createCommitsIfNeeded(this.state.repositoryName)).then(
       action => this.handlePageChange(action),
     );
   }
 
   handleChange(event) {
-    this.props.dispatch(selectRepository(event.target.value));
+    this.setState({
+      repositoryName: event.target.value,
+    });
   }
 
   handlePageChange(action) {
-    const { dispatch, history } = this.props;
-    if (action.type === FINISH_REQUEST) {
-      dispatch(selectRepository(null));
+    const { history } = this.props;
+    if (action.type === GITHUB_FINISH_REQUEST) {
       history.push('/commits/');
     }
   }
 
   render() {
     const {
-      selectedRepository, isFetching,
+      isFetching,
       didInvalidate, errorMessage,
     } = this.props;
     return (
@@ -53,7 +54,7 @@ class HomePage extends React.Component {
           <form onSubmit={e => this.handleSubmit(e)}>
             <RepoField
               onChange={e => this.handleChange(e)}
-              value={selectedRepository}
+              value={this.state.repositoryName}
               isFetching={isFetching}
               hasError={didInvalidate}
               errorMessage={errorMessage}
@@ -71,7 +72,6 @@ HomePage.propTypes = {
   isFetching: PropTypes.bool,
   didInvalidate: PropTypes.bool,
   errorMessage: PropTypes.string,
-  selectedRepository: PropTypes.string,
   dispatch: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,  // eslint-disable-line react/forbid-prop-types
 };
@@ -86,19 +86,18 @@ HomePage.defaultProps = {
 
 
 const mapStateToProps = (state) => {
-  const { githubCommits, selectedRepository } = state;
+  const { githubRequests } = state;
   const {
     isFetching,
     didInvalidate,
     errorMessage,
-  } = githubCommits[selectedRepository] || {
+  } = githubRequests || {
     isFetching: false,
     didInvalidate: false,
     errorMessage: '',
   };
 
   return {
-    selectedRepository,
     isFetching,
     didInvalidate,
     errorMessage,

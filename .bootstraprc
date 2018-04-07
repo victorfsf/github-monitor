@@ -76,7 +76,7 @@ styles:
   input-group: true
   jumbotron: true
   list-group: false
-  media: false
+  media: true
   nav: true
   navbar: true
   pagination: true
