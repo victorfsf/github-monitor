@@ -9,7 +9,7 @@ from common.site import admin
 urlpatterns = [
     url(r'^admin/', admin.urls),
     url(r'^jsreverse/$', urls_js, name='js_reverse'),
-    url(r'^monitor/', include('monitor.urls', namespace='monitor')),
+    url(r'^api/v1/', include('monitor.urls', namespace='monitor')),
     url(r'^auth/', include('users.urls', namespace='users')),
     url(r'^oauth/', include('social_django.urls', namespace='oauth')),
     url(r'^', include('common.urls', namespace='common')),

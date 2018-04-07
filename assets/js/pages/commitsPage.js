@@ -1,7 +1,6 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
-import { NavBar, Box } from 'app/components';
-import Urls from 'utils/urls';
+import { Container, Box } from 'app/components';
 import { connectRouter } from 'utils';
 
 
@@ -9,19 +8,38 @@ class CommitsPage extends React.Component {
 
   constructor(props) {
     super(props);
-    this.setState({});
+    this.state = {
+      breadcrumbs: [{
+        active: true,
+        name: 'Commits',
+        link: '/commits/',
+      }],
+    };
   }
 
   render() {
     return (
-      <div>
-        <NavBar logoutUrl={Urls['users:logout']()} />
-        <div className="container">
-          <Box>
-            TO DO
-          </Box>
-        </div>
-      </div>
+      <Container breadcrumbs={this.state.breadcrumbs}>
+        <Box>
+          <div className="align-middle row">
+            <div className="col-10">
+              <div className="row">
+                <div className="col-12">
+                  Captured Commits
+                  <button type="button" className="btn btn-sm btn-link">
+                    <i className="fa fa-refresh" />
+                  </button>
+                </div>
+                <div className="col-12">
+                  <small className="text-muted">
+                    Last Update: Apr 9, 2017 at 12:20 p.m.
+                  </small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Box>
+      </Container>
     );
   }
 }

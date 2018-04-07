@@ -4,7 +4,7 @@ import './styles.scss';
 
 
 const NavBar = props => (
-  <nav className="navbar navbar-light bg-white">
+  <nav className="navbar navbar-dark bg-dark">
     <div className="container">
       <a className="navbar-brand" href="">
         <i className="fa fa-2x fa-github align-middle" />

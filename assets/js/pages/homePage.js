@@ -1,55 +1,67 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { NavBar, Box, RepoField, Spinner } from 'app/components';
-import Urls from 'utils/urls';
+import { Box, RepoField, Spinner, Container } from 'app/components';
 import { connectRouter } from 'utils';
 import {
-  fetchCommitsIfNeeded,
+  createCommitsIfNeeded,
   selectRepository,
-  RECEIVE_COMMITS,
+  FINISH_REQUEST,
 } from 'redux/actions/github';
 
 
 class HomePage extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      breadcrumbs: [{
+        active: false,
+        name: 'Commits',
+        link: '/commits/',
+      }],
+    };
+  }
+
   handleSubmit(event) {
-    const { dispatch, selectedRepository, history } = this.props;
-    dispatch(fetchCommitsIfNeeded(selectedRepository)).then(
-      (action) => {
-        if (action.type === RECEIVE_COMMITS) {
-          history.push(`/repo/${action.repo}`);
-        }
-      },
-    );
+    const { dispatch, selectedRepository } = this.props;
     event.preventDefault();
+    dispatch(createCommitsIfNeeded(selectedRepository)).then(
+      action => this.handlePageChange(action),
+    );
   }
 
   handleChange(event) {
     this.props.dispatch(selectRepository(event.target.value));
   }
 
+  handlePageChange(action) {
+    const { dispatch, history } = this.props;
+    if (action.type === FINISH_REQUEST) {
+      dispatch(selectRepository(null));
+      history.push('/commits/');
+    }
+  }
+
   render() {
     const {
-      selectedRepository, isFetching, didInvalidate, errorMessage,
+      selectedRepository, isFetching,
+      didInvalidate, errorMessage,
     } = this.props;
     return (
-      <div>
-        <NavBar logoutUrl={Urls['users:logout']()} />
-        <div className="container">
-          <Box>
-            <form method="post" onSubmit={e => this.handleSubmit(e)}>
-              <RepoField
-                onChange={e => this.handleChange(e)}
-                value={selectedRepository}
-                isFetching={isFetching}
-                hasError={didInvalidate}
-                errorMessage={errorMessage}
-              />
-            </form>
-          </Box>
-          {isFetching && <Spinner />}
-        </div>
-      </div>
+      <Container breadcrumbs={this.state.breadcrumbs} home>
+        <Box>
+          <form onSubmit={e => this.handleSubmit(e)}>
+            <RepoField
+              onChange={e => this.handleChange(e)}
+              value={selectedRepository}
+              isFetching={isFetching}
+              hasError={didInvalidate}
+              errorMessage={errorMessage}
+            />
+          </form>
+        </Box>
+        {isFetching && <Spinner />}
+      </Container>
     );
   }
 }
@@ -74,16 +86,15 @@ HomePage.defaultProps = {
 
 
 const mapStateToProps = (state) => {
-  const { commitsByRepo, selectedRepository } = state;
+  const { githubCommits, selectedRepository } = state;
   const {
     isFetching,
     didInvalidate,
     errorMessage,
-  } = commitsByRepo[selectedRepository] || {
+  } = githubCommits[selectedRepository] || {
     isFetching: false,
     didInvalidate: false,
     errorMessage: '',
-    items: [],
   };
 
   return {

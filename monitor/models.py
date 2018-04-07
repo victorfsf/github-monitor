@@ -39,5 +39,6 @@ class Commit(IndexedTimeStampedModel):
         return f'{self.sha} - {self.author}'
 
     class Meta:
+        ordering = ('-date', )
         verbose_name = 'Commit'
         verbose_name_plural = 'Commits'

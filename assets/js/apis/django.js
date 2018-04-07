@@ -32,10 +32,9 @@ class DjangoAPI {
         return {
           ok: false,
           message: 'An error occurred, please try again later.',
-          status: response.status,
         };
       }
-      return { ok: true, commits: mappedCommits };
+      return { ok: true };
     });
   }
 

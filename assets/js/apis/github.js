@@ -1,4 +1,5 @@
 import { GITHUB_API_URL } from 'constants/github';
+import { filterDuplicates } from 'utils';
 import cookie from 'js-cookie';
 import moment from 'moment';
 
@@ -41,7 +42,7 @@ class GithubAPI {
           ),
         ),
       ).then((responses) => {
-        const commits = [...new Set([].concat(...responses))];
+        const commits = filterDuplicates([].concat(...responses), 'sha');
         return { ok: true, commits };
       }),
     );

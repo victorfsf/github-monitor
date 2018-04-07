@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import NavBar from 'app/components/NavBar';
+import NavBar from 'app/components/Container/NavBar';
 
 
 describe('NavBar', () => {

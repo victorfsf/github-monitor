@@ -1,0 +1,32 @@
+nav.navbar {
+    border-bottom: 2px solid rgb(216, 216, 216);
+    font-size: .9em;
+    .fa-2x {
+        vertical-align: middle;
+    }
+    .logout-link,
+    .logout-link:visited {
+        color: #fff;
+    }
+    .logout-link:hover,
+    .logout-link:active,
+    .logout-link:focus {
+        color: #999;
+        text-decoration: none;
+    }
+}
+
+nav.navbar.navbar-dark {
+    padding: .4em 1em .4em 1em;
+    .navbar-brand {
+        color: #fff;
+        font-weight: 500;
+    }
+}
+
+.breadcrumb {
+    border-bottom: 2px solid rgb(247, 247, 247);
+    background-color: #fff;
+    font-size: .9em;
+    font-family: 'Open Sans', sans-serif;
+}

@@ -67,7 +67,7 @@ styles:
   # Components
   alert: false
   badge: false
-  breadcrumb: false
+  breadcrumb: true
   button-group: false
   card: true
   close: false

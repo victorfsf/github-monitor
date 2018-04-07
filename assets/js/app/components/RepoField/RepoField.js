@@ -30,7 +30,7 @@ const RepoField = (props) => {
         <div className="input-group-append">
           <button
             type="submit"
-            className="btn btn-secondary"
+            className="btn btn-info"
             disabled={isFetching}
           >
             Submit

@@ -4,7 +4,7 @@ import './styles.scss';
 
 
 const Box = props => (
-  <div className="my-3 p-3 bg-white rounded box-shadow">
+  <div className="my-3 p-3 bg-white rounded box-border">
     {props.children}
   </div>
 );

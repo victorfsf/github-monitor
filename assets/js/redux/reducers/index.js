@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import { commitsByRepo, selectedRepository } from 'redux/reducers/github';
+import { githubCommits, selectedRepository } from 'redux/reducers/github';
 
 const rootReducer = combineReducers({
-  commitsByRepo,
+  githubCommits,
   selectedRepository,
 });
 
