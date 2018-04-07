@@ -1,6 +1,5 @@
 import Box from './Box';
-import Commit from './Commit';
-import CommitHeader from './CommitHeader';
+import CommitViewer from './CommitViewer';
 import Container from './Container';
 import LoginForm from './LoginForm';
 import RepoField from './RepoField';
@@ -9,8 +8,7 @@ import Pagination from './Pagination';
 
 export {
   Box,
-  Commit,
-  CommitHeader,
+  CommitViewer,
   Container,
   LoginForm,
   RepoField,

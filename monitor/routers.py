@@ -1,14 +1,14 @@
 from rest_framework.routers import Route, SimpleRouter
 
 
-class RepositoryNameRouter(SimpleRouter):
+class RepositoryCommitsRouter(SimpleRouter):
 
     routes = [
         Route(
             url=r'^{prefix}$',
-            mapping={'get': 'retrieve'},
-            name='{basename}-name-detail',
+            mapping={'get': 'list'},
+            name='{basename}-repo-list',
             detail=True,
-            initkwargs={'suffix': 'Detail'}
+            initkwargs={'suffix': 'List'}
         ),
     ]

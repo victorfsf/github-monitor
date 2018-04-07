@@ -2,13 +2,13 @@ import PropTypes from 'prop-types';
 
 
 export default PropTypes.shape({
-  id: PropTypes.number.isRequired,
-  sha: PropTypes.string.isRequired,
-  message: PropTypes.string.isRequired,
-  date: PropTypes.string.isRequired,
-  url: PropTypes.string.isRequired,
-  author: PropTypes.string.isRequired,
-  repository: PropTypes.string.isRequired,
+  id: PropTypes.number,
+  sha: PropTypes.string,
+  message: PropTypes.string,
+  date: PropTypes.string,
+  url: PropTypes.string,
+  author: PropTypes.string,
+  repository: PropTypes.string,
   login: PropTypes.string,
   avatar: PropTypes.string,
 });

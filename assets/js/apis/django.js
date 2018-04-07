@@ -41,27 +41,13 @@ class DjangoAPI {
     });
   }
 
-  static getRepository(repo) {
-    return fetch(
-      Urls['monitor:repository-name-detail'](...repo.split('/')), {
-        credentials: 'same-origin',
-      },
-    ).then(
-      (response) => {
-        if (!response.ok) {
-          return {
-            ok: false,
-            message: 'Repository not found.',
-          };
-        }
-        return response.json();
-      },
-    ).then(json => (Object.assign({ ok: true }, json)));
-  }
-
   static getCommits(params, repo = null) {
-    const urlFn = Urls['monitor:commit-list'];
-    const url = repo ? urlFn(...repo.split('/')) : urlFn();
+    let url;
+    if (repo) {
+      url = Urls['monitor:commit-repo-list'](...repo.split('/'));
+    } else {
+      url = Urls['monitor:commit-list']();
+    }
     return fetch(
       `${url}${params}`, {
         credentials: 'same-origin',
@@ -71,7 +57,9 @@ class DjangoAPI {
         if (!response.ok) {
           return {
             ok: false,
-            message: 'An error occurred, please try again later.',
+            message: (
+              repo ? 'Repository not found.' : 'An error occurred, please try again later.'
+            ),
           };
         }
         return response.json();

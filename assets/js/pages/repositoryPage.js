@@ -1,24 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box, Container } from 'app/components';
 import { connectRouter } from 'utils';
+import { setBreadcrumbs } from 'redux/actions/breadcrumb';
+import { breadcrumbPropTypes } from 'types';
+import { CommitViewer } from 'app/components';
 
 
 class RepositoryPage extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      breadcrumbs: [{
-        active: false,
-        name: 'Commits',
-        link: '/commits/',
-      }, {
-        active: true,
-        name: this.getRepositoryName(),
-        link: this.props.match.url,
-      }],
-    };
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(setBreadcrumbs([{
+      active: false,
+      name: 'Commits',
+      link: '/commits/',
+    }, {
+      active: true,
+      name: this.getRepositoryName(),
+      link: this.props.match.url,
+    }]));
   }
 
   getRepositoryName() {
@@ -27,28 +27,38 @@ class RepositoryPage extends React.Component {
   }
 
   render() {
+    const { breadcrumbs, history } = this.props;
+    const repo = this.getRepositoryName();
     return (
-      <Container breadcrumbs={this.state.breadcrumbs}>
-        <Box>
-          TO DO
-        </Box>
-      </Container>
+      <CommitViewer
+        breadcrumbs={breadcrumbs}
+        history={history}
+        repo={repo}
+      />
     );
   }
 }
 
 
 RepositoryPage.propTypes = {
+  dispatch: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired,  // eslint-disable-line react/forbid-prop-types
-  // dispatch: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,  // eslint-disable-line react/forbid-prop-types
+  breadcrumbs: PropTypes.arrayOf(breadcrumbPropTypes),
 };
 
 
 RepositoryPage.defaultProps = {
+  breadcrumbs: [],
 };
 
 
-const mapStateToProps = state => state;
+const mapStateToProps = (state) => {
+  const { breadcrumbList } = state;
+  return {
+    breadcrumbs: breadcrumbList,
+  };
+};
 
 
 export default connectRouter(mapStateToProps, RepositoryPage);

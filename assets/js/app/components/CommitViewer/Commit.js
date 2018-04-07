@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Box from 'app/components/Box';
 import octocat from 'app/images/github/octocat.png';
-import commitPropTypes from 'types';
+import { commitPropTypes } from 'types';
 import { formatDate } from 'utils';
 import { GITHUB_URL } from 'constants/github';
 import { Link } from 'react-router-dom';
@@ -64,7 +64,13 @@ const Commit = (props) => {
 
 
 Commit.propTypes = {
-  payload: PropTypes.shape(commitPropTypes).isRequired,
+  payload: PropTypes.shape(commitPropTypes),
 };
+
+
+Commit.defaultProps = {
+  payload: null,
+};
+
 
 export default Commit;

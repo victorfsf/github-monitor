@@ -7,7 +7,35 @@ from monitor.models import Commit, Repository
 from monitor.serializers import CommitSerializer, RepositorySerializer
 
 
-class RepositoryViewSetMixin(object):
+class CommitViewSetMixin(object):
+
+    queryset = Commit.objects.all()
+    serializer_class = CommitSerializer
+
+    def get_queryset(self):
+        return self.queryset.filter(repository__users=self.request.user)
+
+
+class RepositoryCommitsViewSet(CommitViewSetMixin, viewsets.GenericViewSet):
+
+    def list(self, request, name, owner):  # pylint: disable=unused-argument
+        repository = get_object_or_404(
+            Repository.objects.filter(
+                users=self.request.user, name=name, owner=owner
+            )
+        )
+        queryset = self.filter_queryset(
+            self.get_queryset()
+        ).filter(repository=repository)
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+
+
+class RepositoryViewSet(viewsets.ModelViewSet):
 
     queryset = Repository.objects.all()
     serializer_class = RepositorySerializer
@@ -16,22 +44,5 @@ class RepositoryViewSetMixin(object):
         return self.queryset.filter(users=self.request.user)
 
 
-class RepositoryNameViewSet(RepositoryViewSetMixin, viewsets.ViewSet):
-
-    def retrieve(self, request, name, owner):  # pylint: disable=unused-argument
-        queryset = self.get_queryset()
-        repository = get_object_or_404(queryset, name=name, owner=owner)
-        serializer = RepositorySerializer(repository)
-        return Response(serializer.data)
-
-
-class RepositoryViewSet(RepositoryViewSetMixin, viewsets.ModelViewSet):
+class CommitViewSet(CommitViewSetMixin, viewsets.ModelViewSet):
     pass
-
-
-class CommitViewSet(viewsets.ModelViewSet):
-    queryset = Commit.objects.all()
-    serializer_class = CommitSerializer
-
-    def get_queryset(self):
-        return self.queryset.filter(repository__users=self.request.user)

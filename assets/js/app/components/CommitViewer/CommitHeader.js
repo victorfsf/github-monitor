@@ -9,7 +9,7 @@ const CommitHeader = props => (
     <div className="align-middle">
       <div className="row">
         <div className="col-sm-12 col-md-6">
-          Captured Commits {props.extraHeader}
+          Captured Commits
           <button
             type="button"
             className="btn btn-sm btn-link"
@@ -17,10 +17,13 @@ const CommitHeader = props => (
           >
             <i className="fa fa-refresh" />
           </button>
+          <small className="text-muted">
+            {props.repo}
+          </small>
         </div>
         <div className="col-sm-12 col-md-6">
           <small className="float-md-right">
-            Count: {props.count} Commits
+            {props.count} Commits
           </small>
         </div>
       </div>
@@ -43,13 +46,13 @@ const CommitHeader = props => (
 CommitHeader.propTypes = {
   onClick: PropTypes.func.isRequired,
   lastUpdate: PropTypes.string,
-  extraHeader: PropTypes.string,
+  repo: PropTypes.string,
   count: PropTypes.number,
 };
 
 
 CommitHeader.defaultProps = {
-  extraHeader: '',
+  repo: '',
   lastUpdate: null,
   count: 0,
 };

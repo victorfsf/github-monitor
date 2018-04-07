@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Box, RepoField, Spinner, Container } from 'app/components';
+import { setBreadcrumbs } from 'redux/actions/breadcrumb';
+import { breadcrumbPropTypes } from 'types';
 import { connectRouter } from 'utils';
 import {
   createCommitsIfNeeded,
@@ -14,12 +16,16 @@ class HomePage extends React.Component {
     super(props);
     this.state = {
       repositoryName: '',
-      breadcrumbs: [{
-        active: false,
-        name: 'Commits',
-        link: '/commits/',
-      }],
     };
+  }
+
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(setBreadcrumbs([{
+      active: false,
+      name: 'Commits',
+      link: '/commits/',
+    }]));
   }
 
   handleSubmit(event) {
@@ -45,11 +51,11 @@ class HomePage extends React.Component {
 
   render() {
     const {
-      isFetching,
+      isFetching, breadcrumbs,
       didInvalidate, errorMessage,
     } = this.props;
     return (
-      <Container breadcrumbs={this.state.breadcrumbs} home>
+      <Container breadcrumbs={breadcrumbs} home>
         <Box>
           <form onSubmit={e => this.handleSubmit(e)}>
             <RepoField
@@ -69,6 +75,7 @@ class HomePage extends React.Component {
 
 
 HomePage.propTypes = {
+  breadcrumbs: PropTypes.arrayOf(breadcrumbPropTypes),
   isFetching: PropTypes.bool,
   didInvalidate: PropTypes.bool,
   errorMessage: PropTypes.string,
@@ -78,6 +85,7 @@ HomePage.propTypes = {
 
 
 HomePage.defaultProps = {
+  breadcrumbs: [],
   isFetching: false,
   didInvalidate: false,
   selectedRepository: '',
@@ -86,7 +94,7 @@ HomePage.defaultProps = {
 
 
 const mapStateToProps = (state) => {
-  const { githubRequests } = state;
+  const { githubRequests, breadcrumbList } = state;
   const {
     isFetching,
     didInvalidate,
@@ -101,6 +109,7 @@ const mapStateToProps = (state) => {
     isFetching,
     didInvalidate,
     errorMessage,
+    breadcrumbs: breadcrumbList,
   };
 };
 

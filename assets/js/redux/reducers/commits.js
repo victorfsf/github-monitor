@@ -1,6 +1,6 @@
 import {
-  REQUEST_ALL_COMMITS,
-  RECEIVE_ALL_COMMITS,
+  REQUEST_COMMITS,
+  RECEIVE_COMMITS,
 } from 'redux/actions/commits';
 
 
@@ -11,13 +11,13 @@ const selectedCommits = (state = {
   errorMessage: '',
 }, action) => {
   switch (action.type) {
-    case REQUEST_ALL_COMMITS:
+    case REQUEST_COMMITS:
       return Object.assign({}, state, {
         isFetching: true,
         didInvalidate: false,
         errorMessage: '',
       });
-    case RECEIVE_ALL_COMMITS:
+    case RECEIVE_COMMITS:
       return Object.assign({}, state, {
         isFetching: false,
         didInvalidate: false,
@@ -27,6 +27,7 @@ const selectedCommits = (state = {
         commits: action.commits,
         nextPage: action.nextPage,
         prevPage: action.prevPage,
+        count: action.count,
       });
     default:
       return state;

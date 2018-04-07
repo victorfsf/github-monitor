@@ -1,4 +1,8 @@
 import commitPropTypes from './commit';
+import breadcrumbPropTypes from './breadcrumb';
 
 
-export default commitPropTypes;
+export {
+  commitPropTypes,
+  breadcrumbPropTypes,
+};
