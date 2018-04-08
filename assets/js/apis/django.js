@@ -4,9 +4,8 @@ import { Urls } from 'utils';
 
 class DjangoAPI {
 
-  static postRepository(repo, commits) {
-    const [owner, name] = repo.split('/');
-    const mappedCommits = commits.map(c => ({
+  static mapCommits(commits) {
+    return commits.map(c => ({
       message: c.commit.message,
       sha: c.sha,
       date: c.commit.author.date,
@@ -19,13 +18,17 @@ class DjangoAPI {
       },
       branch: c.branch,
     }));
+  }
+
+  static postRepository(repo, commits) {
+    const [owner, name] = repo.split('/');
     return fetch(
       Urls['monitor:repository-list'](), {
         method: 'POST',
         body: JSON.stringify({
           owner,
           name,
-          commits: mappedCommits,
+          commits: this.mapCommits(commits),
         }),
         credentials: 'same-origin',
         headers: {
