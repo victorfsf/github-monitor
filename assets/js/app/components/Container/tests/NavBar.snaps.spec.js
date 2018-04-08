@@ -4,7 +4,7 @@ import NavBar from 'app/components/Container/NavBar';
 import * as ReactRouter from 'react-router-dom';
 
 ReactRouter.Link = jest.fn(props => (
-  <a href={props.to}>{props.children}</a>
+  <a href={props.to} className={props.className}>{props.children}</a>
 ));
 
 
