@@ -16,14 +16,21 @@ def hub_signature_verify(value, expected):
 
 
 def get_author(payload):
-    github_id = payload.get('id')
+    github_id = payload.get('id') or payload.get('github_id')
+    email = payload.get('email')
     kwargs = {
         'github_id': github_id
     } if github_id else {
-        'email': payload.get('email')
+        'email': email
     }
     author, _ = Author.objects.get_or_create(**kwargs)
-    for field, value in payload.items():
+    fields = {
+        'github_id': github_id,
+        'email': email,
+        'name': payload.get('name'),
+        'login': payload.get('login')
+    }
+    for field, value in fields.items():
         if value:
             setattr(author, field, value)
     author.save()
