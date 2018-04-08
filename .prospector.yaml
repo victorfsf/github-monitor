@@ -35,6 +35,7 @@ pylint:
     - no-member
     - abstract-method
     - too-many-ancestors
+    - wrong-import-order  # isort decisions are conflicting with pylint checks
   options:
     max-line-length: 100
 

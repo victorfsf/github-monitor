@@ -12,13 +12,13 @@
 
 - repo: local
   hooks:
-  # - id: isort
-  #   name: isort-local
-  #   entry : isort
-  #   language: python
-  #   types: [python]
-  #   exclude: .+/(settings|migrations)/.+
-  #   pass_filenames: true
+  - id: isort
+    name: isort-local
+    entry : isort
+    language: python
+    types: [python]
+    exclude: .+/(settings|migrations)/.+
+    pass_filenames: true
   - id: eslint
     name: eslint-local
     entry: npm run lint
