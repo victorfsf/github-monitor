@@ -17,7 +17,9 @@ jobs:
           - v1-dependencies-
       - run:
           name: install dependencies
-          command: pipenv install
+          command: |
+            pipenv install
+            pipenv install --dev
 
       - save_cache:
           paths:
