@@ -1,6 +1,18 @@
-.media-body {
-    .title {
-        font-size: 0.9em;
-        font-weight: 600;
+.media {
+    .media-body {
+        .title {
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+    }
+
+    .avatar {
+        background-color: #f0f0f0;
+        width: 40px;
+        height: 40px;
+        color: #cacaca;
+        i {
+            line-height: 40px;
+        }
     }
 }
