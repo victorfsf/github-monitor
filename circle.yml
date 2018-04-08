@@ -1,6 +1,6 @@
 machine:  # remeber to update those!
   python:
-    version: 3.6.4
+    version: 3.6
   node:
     version: 6.1.0
   environment:
