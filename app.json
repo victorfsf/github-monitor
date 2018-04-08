@@ -1,6 +1,6 @@
 {
-  "name": "github_monitor",
-  "description": "Github_Monitor Heroku app.",
+  "name": "githubmonitor",
+  "description": "Github Monitor",
   "scripts": {
     "postdeploy": "python manage.py migrate"
   },
