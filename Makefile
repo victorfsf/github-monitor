@@ -18,7 +18,7 @@ isort:
 	isort -rc . -s "node_modules/" -s "*/migrations/*"
 
 celery:
-	celery -A github_monitor worker -l info -c 10 -E -Q default
+	celery -A github_monitor worker -l info -c 10 -E
 
 celery.purge:
 	@echo "from celery.task.control import discard_all; discard_all()" | \

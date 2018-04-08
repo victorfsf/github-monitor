@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Box from 'app/components/Box';
-import octocat from 'app/images/github/octocat.png';
 import { commitPropTypes } from 'types';
 import { formatDate } from 'utils';
 import { GITHUB_URL } from 'constants/github';
 import { Link } from 'react-router-dom';
+import Box from 'app/components/Box';
+import Avatar from './Avatar';
 import './styles.scss';
 
 
@@ -15,20 +15,15 @@ const Commit = (props) => {
     return <Box />;
   }
   const message = payload.message.split('\n', 1)[0];
-  const userProfileUrl = `${GITHUB_URL}${payload.login}`;
-  const avatar = (
-    <img
-      src={payload.avatar || octocat}
-      className="mr-3 rounded"
-      alt={payload.author}
-      width="40px"
-    />
-  );
+  const { author } = payload;
+  const userProfileUrl = `${GITHUB_URL}${author.login}`;
+  const avatar = <Avatar id={author.github_id} name={author.name} />;
+
   return (
     <Box>
       <div className="media">
-        {payload.login ? (
-          <a href={`${GITHUB_URL}${payload.login}`} target="blank_">
+        {author.login ? (
+          <a href={`${GITHUB_URL}${author.login}`} target="blank_">
             {avatar}
           </a>
         ) : avatar}
@@ -48,10 +43,10 @@ const Commit = (props) => {
           <small className="row">
             <div className="col-md-8 col-sm-12 pt-xs-2 pt-sm-2 pt-md-0">
               <a href={userProfileUrl} target="blank_">
-                {payload.author}
+                {author.name}
               </a>
               <span className="pl-1 text-muted">
-                {payload.login && `[${payload.login}]`}
+                {author.login && `[${author.login}]`}
               </span>
               <i className="fa fa-code-fork pl-2 pr-1" />
               {payload.branch}
@@ -67,7 +62,9 @@ const Commit = (props) => {
           <small className="row">
             <div className="col-12 pt-sm-2 pt-md-0">
               <i className="fa fa-code pr-1" />
-              <a href={payload.url} target="blank_">{payload.sha}</a>
+              <a href={payload.url} target="blank_">
+                {payload.sha}
+              </a>
             </div>
           </small>
         </div>

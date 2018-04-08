@@ -11,9 +11,12 @@ class DjangoAPI {
       sha: c.sha,
       date: c.commit.author.date,
       url: c.html_url,
-      login: c.author ? c.author.login : null,
-      author: c.commit.author.name,
-      avatar: c.author ? c.author.avatar_url : null,
+      author: {
+        name: c.commit.author.name,
+        email: c.commit.author.email,
+        login: c.author ? c.author.login : null,
+        github_id: c.author ? c.author.id : null,
+      },
       branch: c.branch,
     }));
     return fetch(

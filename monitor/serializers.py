@@ -1,27 +1,28 @@
-from django.db.models.query import QuerySet
-
 from rest_framework import serializers
 
-from monitor.models import Commit, Repository
+from monitor.models import Author, Commit, Repository
+from monitor.tasks import create_github_hook
+from monitor.utils import get_author
 
 
-class OrderByDateSerializer(serializers.ListSerializer):
+class AuthorSerializer(serializers.ModelSerializer):
 
-    def to_representation(self, data):
-        if isinstance(data, QuerySet):
-            data = data.order_by('-date')
-        return super().to_representation(data)
+    class Meta:
+        model = Author
+        fields = (
+            'id', 'github_id', 'name', 'login', 'email'
+        )
 
 
 class CommitSerializer(serializers.ModelSerializer):
+    author = AuthorSerializer()
     repository = serializers.StringRelatedField()
 
     class Meta:
         model = Commit
-        list_serializer_class = OrderByDateSerializer
         fields = (
             'id', 'message', 'sha', 'date', 'url', 'branch',
-            'author', 'login', 'repository', 'avatar'
+            'author', 'repository',
         )
 
 
@@ -38,16 +39,27 @@ class RepositorySerializer(serializers.ModelSerializer):
             request = self.context.get('request')
             instance.users.add(request.user)
         for commit in commits:
-            # Guarantees that the instance's ID can't be changed manually
             commit.pop('id', None)
-            Commit.objects.get_or_create(repository=instance, **commit)
+            author = get_author(commit.pop('author'))
+            Commit.objects.get_or_create(
+                repository=instance,
+                author=author,
+                **commit
+            )
         return instance
 
     def update(self, instance, validated_data):
         return self.create_or_update(validated_data, instance=instance)
 
     def create(self, validated_data):
-        return self.create_or_update(validated_data)
+        instance = self.create_or_update(validated_data)
+        if 'request' in self.context:
+            request = self.context.get('request')
+            github_user = request.user.github
+            create_github_hook.delay(
+                github_user.access_token, str(instance)
+            )
+        return instance
 
     class Meta:
         model = Repository

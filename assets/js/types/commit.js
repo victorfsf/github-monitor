@@ -7,8 +7,13 @@ export default PropTypes.shape({
   message: PropTypes.string,
   date: PropTypes.string,
   url: PropTypes.string,
-  author: PropTypes.string,
+  author: PropTypes.shape({
+    name: PropTypes.name,
+    login: PropTypes.login,
+    id: PropTypes.number,
+    github_id: PropTypes.number,
+    avatar: PropTypes.string,
+    email: PropTypes.string,
+  }),
   repository: PropTypes.string,
-  login: PropTypes.string,
-  avatar: PropTypes.string,
 });

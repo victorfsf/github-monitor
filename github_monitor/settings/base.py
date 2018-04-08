@@ -133,7 +133,7 @@ SOCIAL_AUTH_STORAGE = 'users.storage.GithubSocialStorage'
 
 GITHUB_API_URL = 'https://api.github.com/'
 GITHUB_URL = 'https://github.com/'
-
+GITHUB_AVATAR_URL = 'https://avatars1.githubusercontent.com/u/%(user_id)s?v=4'
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
