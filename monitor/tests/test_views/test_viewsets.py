@@ -1,11 +1,12 @@
 from unittest.mock import MagicMock
 
+from django.http import Http404
 from django.test import TestCase
 
 from model_mommy import mommy
 
 from monitor.models import Commit, Repository
-from monitor.views import CommitViewSet, RepositoryViewSet
+from monitor.views import CommitViewSet, RepositoryCommitsViewSet, RepositoryViewSet
 
 
 class TestViewSetMixin(object):
@@ -40,6 +41,71 @@ class TestViewSetMixin(object):
         self.empty_user.delete()
         for repo in self.repositories:
             repo.delete()
+
+
+class TestRepositoryCommitsViewSet(TestCase):
+
+    def setUp(self):
+        self.view = RepositoryCommitsViewSet()
+        self.user = mommy.make('users.User')
+        self.view.request = MagicMock(user=self.user)
+        self.view.request.build_absolute_uri.return_value = 'http://fake-url'
+        self.view.format_kwarg = None
+        self.repo = mommy.make(
+            'monitor.Repository',
+            name='repo-name', owner='repo-owner',
+            users=[self.user], commits=[]
+        )
+
+    def assertIDsMatch(self, result, expected, x, y):
+        self.assertEqual(
+            [i.get('id') for i in result],
+            [i.id for i in sorted(expected, key=lambda c: -c.id)[x:y]]
+        )
+
+    def test_list_passes(self):
+        commits = mommy.make(
+            'monitor.Commit',
+            repository=self.repo,
+            _quantity=20
+        )
+        response = self.view.list(self.view.request, 'repo-name', 'repo-owner')
+        data = response.data
+        self.assertEqual(data['count'], 20)
+        self.assertEqual(data['next'], 'http://fake-url?page=2')
+        self.assertEqual(data['previous'], None)
+        self.assertEqual(len(data['results']), 10)
+        self.assertIDsMatch(data['results'], commits, 0, 10)
+
+    def test_list_passes_with_empty_queryset(self):
+        response = self.view.list(self.view.request, 'repo-name', 'repo-owner')
+        data = response.data
+        self.assertEqual(data['count'], 0)
+        self.assertEqual(data['results'], [])
+
+    def test_list_passes_without_pagination(self):
+        commits = mommy.make(
+            'monitor.Commit',
+            repository=self.repo,
+            _quantity=10
+        )
+        response = self.view.list(self.view.request, 'repo-name', 'repo-owner')
+        data = response.data
+        self.assertEqual(data['count'], 10)
+        self.assertEqual(data['next'], None)
+        self.assertEqual(data['previous'], None)
+        self.assertEqual(len(data['results']), 10)
+        self.assertIDsMatch(data['results'], commits, 0, 10)
+
+    def test_list_fails_with_404(self):
+        mommy.make(
+            'monitor.Repository',
+            name='repo-name2', owner='repo-owner2'
+        )
+        with self.assertRaises(Http404):
+            self.view.list(
+                self.view.request, 'repo-name2', 'repo-owner2'
+            )
 
 
 class TestRepositoryViewSet(TestViewSetMixin, TestCase):

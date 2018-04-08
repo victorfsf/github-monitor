@@ -13,7 +13,11 @@ def app_view(request):
     try:
         user_data = request.user.github.extra_data
     except ObjectDoesNotExist:
-        return HttpResponseRedirect(reverse_lazy('users:logout'))
+        if request.user.is_superuser:
+            url = reverse_lazy('admin:index')
+        else:
+            url = reverse_lazy('users:logout')
+        return HttpResponseRedirect(url)
     if user_data.get('access_token'):
         response.set_cookie(
             'accesstoken',

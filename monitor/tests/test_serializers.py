@@ -95,16 +95,39 @@ class TestRepositorySerializer(TestCase):
                 }
             } for i in range(10)]
         }
-        self.user = mommy.make('users.User')
+        self.user = mommy.make(
+            'users.User'
+        )
+        mommy.make(
+            'users.GithubUser',
+            extra_data={'access_token': '1234'},
+            user=self.user
+        )
         self.repo = mommy.make(
             'monitor.Repository', owner='repo_owner', name='repo-name'
         )
+
+    def get_serializer_with_request(self):
+        request = MagicMock()
+        request.user = self.user
+        return self.serializer_class(context={'request': request})
 
     @patch('monitor.serializers.RepositorySerializer.create_or_update')
     def test_create(self, create_or_update):
         serializer = self.serializer_class()
         serializer.create(self.valid_data)
         create_or_update.assert_called_with(self.valid_data)
+
+    @patch('monitor.tasks.create_github_hook.delay')
+    @patch('monitor.serializers.RepositorySerializer.create_or_update')
+    def test_create_with_request(self, create_or_update, delay):
+        create_or_update.return_value = self.repo
+        serializer = self.get_serializer_with_request()
+        serializer.create(self.valid_data)
+        create_or_update.assert_called_with(self.valid_data)
+        delay.assert_called_with(
+            self.user.github.access_token, str(self.repo)
+        )
 
     @patch('monitor.serializers.RepositorySerializer.create_or_update')
     def test_update(self, create_or_update):
@@ -145,9 +168,7 @@ class TestRepositorySerializer(TestCase):
             self.assertEqual(expected, serialized)
 
     def test_create_or_update_with_request(self):
-        request = MagicMock()
-        request.user = self.user
-        serializer = self.serializer_class(context={'request': request})
+        serializer = self.get_serializer_with_request()
         data = deepcopy(self.valid_data)
         repo = serializer.create_or_update(data)
 

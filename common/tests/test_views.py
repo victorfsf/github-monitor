@@ -1,5 +1,7 @@
 from django.test import Client
 
+from model_mommy import mommy
+
 from common.utils.tests import TestCaseUtils
 
 
@@ -7,6 +9,21 @@ class TestAppView(TestCaseUtils):
 
     def get_response(self):
         return self.auth_client.get(self.reverse('common:index'))
+
+    def get_client_without_github(self, is_superuser=False):
+        user = mommy.prepare(
+            'users.User',
+            username='test_username2',
+            is_superuser=is_superuser
+        )
+        user.set_password(self._user_password)
+        user.save()
+        client = Client()
+        client.login(
+            username=user.username,
+            password=self._user_password
+        )
+        return client
 
     def assertAccessToken302(self):
         response = self.get_response()
@@ -46,4 +63,22 @@ class TestAppView(TestCaseUtils):
         self.assertEqual(
             response.url,
             f'{self.reverse("users:login")}?next={url}'
+        )
+
+    def test_user_is_authenticated_without_github(self):
+        client = self.get_client_without_github()
+        response = client.get(self.reverse('common:index'))
+        self.assertResponse302(response)
+        self.assertEqual(
+            response.url,
+            self.reverse('users:logout')
+        )
+
+    def test_user_is_superuser_without_github(self):
+        client = self.get_client_without_github(is_superuser=True)
+        response = client.get(self.reverse('common:index'))
+        self.assertResponse302(response)
+        self.assertEqual(
+            response.url,
+            self.reverse('admin:index')
         )
