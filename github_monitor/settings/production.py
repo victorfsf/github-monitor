@@ -8,6 +8,8 @@ from .base import *
 
 DEBUG = False
 
+HOST = config('HOST')
+
 SECRET_KEY = config('SECRET_KEY')
 
 DATABASES = {
