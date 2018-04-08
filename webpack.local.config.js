@@ -31,10 +31,6 @@ baseConfig[1].module.loaders.push(
       'babel-loader?presets[]=react,presets[]=es2015',
     ],
   },
-  {
-    test: /\.(woff(2)?|eot|ttf)(\?v=\d+\.\d+\.\d+)?$/,
-    loader: 'url-loader?limit=100000',
-  },
 );
 
 baseConfig[1].plugins = [

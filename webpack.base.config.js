@@ -76,6 +76,10 @@ module.exports = [{
           { loader: 'font-awesome-loader' },
         ],
       },
+      {
+        test: /\.(woff(2)?|eot|ttf)(\?v=\d+\.\d+\.\d+)?$/,
+        loader: 'url-loader?limit=100000',
+      },
     ],
   },
   plugins: [

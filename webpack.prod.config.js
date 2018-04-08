@@ -7,12 +7,12 @@ const path = require('path');
 
 const nodeModulesDir = path.resolve(__dirname, 'node_modules');
 
-baseConfig[1].entry = [
+baseConfig[1].entry.push(
   'bootstrap-loader/extractStyles',
   'whatwg-fetch',
   'babel-polyfill',
   './assets/js/index.js',
-];
+);
 
 baseConfig[1].output = {
   path: path.resolve('./assets/webpack_bundles/'),
@@ -25,10 +25,6 @@ baseConfig[1].module.loaders.push(
     test: /\.jsx?$/,
     exclude: [nodeModulesDir],
     loaders: ['babel-loader?presets[]=react,presets[]=es2015'],
-  },
-  {
-    test: /\.(woff(2)?|eot|ttf)(\?v=\d+\.\d+\.\d+)?$/,
-    loader: 'file-loader?name=fonts/[name].[ext]',
   },
 );
 
