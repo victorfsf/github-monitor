@@ -4,9 +4,9 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.db import transaction
 
+from celery import task
 from requests import post
 from requests.exceptions import ConnectionError  # pylint: disable=redefined-builtin
-from celery import task
 
 from monitor.models import Commit
 from monitor.utils import get_author
@@ -26,7 +26,7 @@ def create_github_hook(self, access_token, repository):
         response = post(
             f'{url}?access_token={access_token}', data=payload
         )
-        if response.status_code not in [204, 100]:
+        if response.status_code not in [204, 100]:  # HTTP: [No Content, Continue]
             self.retry(exc=None, max_retries=3, countdown=30)
     except ConnectionError as exc:
         self.retry(exc=exc, max_retries=5, countdown=30)
@@ -34,16 +34,21 @@ def create_github_hook(self, access_token, repository):
 
 @task
 def create_commits(repository_id, commits, sender, branch):
-    cleaned_commits = [{
+    cleaned_commits = ({
         'message': c['message'],
         'sha': c['id'],
         'date': c['timestamp'],
         'url': c['url'],
         'branch': branch,
         'repository_id': repository_id,
-    } for c in commits]
+    } for c in commits)
     author = get_author(sender)
     with transaction.atomic():
         queryset = Commit.objects.select_for_update()
         for commit in cleaned_commits:
-            queryset.get_or_create(author=author, **commit)
+            commit['author'] = author
+            queryset.update_or_create(
+                sha=commit['sha'],
+                repository_id=commit['repository_id'],
+                defaults=commit
+            )

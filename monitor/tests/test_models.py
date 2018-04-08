@@ -40,7 +40,10 @@ class TestRepository(TestCase):
 class TestCommit(TestCase):
 
     def setUp(self):
-        self.instance = mommy.make('monitor.Commit')
+        self.instance = mommy.make(
+            'monitor.Commit',
+            author=mommy.make('monitor.Author', name='Author', login=None)
+        )
 
     def test_str(self):
         self.assertEqual(
@@ -49,20 +52,19 @@ class TestCommit(TestCase):
         )
 
         self.instance.sha = None
-        self.instance.author = None
         self.assertEqual(
             str(self.instance),
-            f'None - None'
+            f'None - Author'
         )
 
         self.instance.sha = ''
-        self.instance.author = ''
+        self.instance.author.login = 'login'
         self.assertEqual(
-            str(self.instance), f' - '
+            str(self.instance), f' - login'
         )
 
         self.instance.sha = 'sha'
-        self.instance.author = 'author'
+        self.instance.author.login = 'author'
         self.assertEqual(
             str(self.instance), f'sha - author'
         )

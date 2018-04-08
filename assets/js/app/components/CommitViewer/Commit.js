@@ -43,6 +43,7 @@ const Commit = (props) => {
           <small className="row">
             <div className="col-md-8 col-sm-12 pt-xs-2 pt-sm-2 pt-md-0">
               <a href={userProfileUrl} target="blank_">
+                <i className="fa fa-user-o pr-1" />
                 {author.name}
               </a>
               <span className="pl-1 text-muted">

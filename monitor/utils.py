@@ -16,6 +16,9 @@ def hub_signature_verify(value, expected):
 
 
 def get_author(payload):
+    if not isinstance(payload, dict):
+        return None
+
     github_id = payload.get('id') or payload.get('github_id')
     email = payload.get('email')
     kwargs = {
@@ -23,15 +26,11 @@ def get_author(payload):
     } if github_id else {
         'email': email
     }
-    author, _ = Author.objects.get_or_create(**kwargs)
-    fields = {
+    kwargs['defaults'] = {
         'github_id': github_id,
         'email': email,
         'name': payload.get('name'),
         'login': payload.get('login')
     }
-    for field, value in fields.items():
-        if value:
-            setattr(author, field, value)
-    author.save()
+    author, _ = Author.objects.update_or_create(**kwargs)
     return author

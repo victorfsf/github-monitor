@@ -29,23 +29,34 @@ class CommitSerializer(serializers.ModelSerializer):
 class RepositorySerializer(serializers.ModelSerializer):
     commits = CommitSerializer(many=True)
 
+    def get_user(self):
+        if 'request' in self.context:
+            request = self.context.get('request')
+            user = request.user
+            return user if user.is_authenticated() else None
+        return None
+
     def create_or_update(self, validated_data, instance=None):
         commits = validated_data.pop('commits', [])
         if not instance:
             instance, _ = Repository.objects.get_or_create(
                 **validated_data
             )
-        if 'request' in self.context:
-            request = self.context.get('request')
-            instance.users.add(request.user)
+        user = self.get_user()
+        if user:
+            instance.users.add(user)
         for commit in commits:
             commit.pop('id', None)
-            author = get_author(commit.pop('author'))
-            Commit.objects.get_or_create(
-                repository=instance,
-                author=author,
-                **commit
-            )
+            author = get_author(commit.pop('author', None))
+            if author:
+                commit.update({
+                    'author': author
+                })
+                commit, _ = Commit.objects.update_or_create(
+                    sha=commit['sha'],
+                    repository=instance,
+                    defaults=commit
+                )
         return instance
 
     def update(self, instance, validated_data):
@@ -53,11 +64,10 @@ class RepositorySerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         instance = self.create_or_update(validated_data)
-        if 'request' in self.context:
-            request = self.context.get('request')
-            github_user = request.user.github
+        user = self.get_user()
+        if user:
             create_github_hook.delay(
-                github_user.access_token, str(instance)
+                user.github.access_token, str(instance)
             )
         return instance
 
