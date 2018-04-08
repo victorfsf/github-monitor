@@ -21,7 +21,7 @@ class HubWebhookView(View):
         return JsonResponse({
             'ok': False,
             'status': 404
-        }, status_code=404)
+        }, status=404)
 
     def post(self, request, *args, **kwargs):
         payload = self.get_payload(request)
@@ -49,7 +49,10 @@ class HubWebhookView(View):
             )
         else:
             return self.response_404()
-        return JsonResponse({'ok': True, 'created': created})
+        return JsonResponse(
+            {'ok': True, 'created': created},
+            status=(201 if created else 200)
+        )
 
     def create_hook(self, repository, hook_id):
         repository.hook = hook_id

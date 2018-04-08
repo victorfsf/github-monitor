@@ -6,12 +6,16 @@ from django.conf import settings
 from monitor.models import Author
 
 
+def hub_sign(value, secret=settings.HUB_SECRET):
+    return hmac.new(secret.encode(), value, sha1).hexdigest()
+
+
 def hub_signature_verify(value, expected):
 
     if not value or not expected:
         return False
 
-    calc = hmac.new(settings.HUB_SECRET.encode(), value, sha1).hexdigest()
+    calc = hub_sign(value)
     return hmac.compare_digest(f'sha1={calc}', expected)
 
 

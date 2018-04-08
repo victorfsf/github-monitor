@@ -4,9 +4,9 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.db import transaction
 
+import requests
 from celery import task
-from requests import post
-from requests.exceptions import ConnectionError  # pylint: disable=redefined-builtin
+from requests.exceptions import ConnectionError as RequestsConnectionError
 
 from monitor.models import Commit
 from monitor.utils import get_author
@@ -23,12 +23,12 @@ def create_github_hook(self, access_token, repository):
             'hub.callback': urljoin(settings.HOST, reverse('monitor:hub')),
             'hub.secret': settings.HUB_SECRET
         }
-        response = post(
+        response = requests.post(
             f'{url}?access_token={access_token}', data=payload
         )
         if response.status_code not in [204, 100]:  # HTTP: [No Content, Continue]
             self.retry(exc=None, max_retries=3, countdown=30)
-    except ConnectionError as exc:
+    except RequestsConnectionError as exc:
         self.retry(exc=exc, max_retries=5, countdown=30)
 
 
