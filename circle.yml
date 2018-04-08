@@ -38,8 +38,6 @@ test:
       SECRET_KEY=$(python -c 'import uuid; print(uuid.uuid4().hex + uuid.uuid4().hex)')
       DATABASE_URL='sqlite:///'
       ALLOWED_HOSTS='.example.org'
-      SENDGRID_USERNAME='test'
-      SENDGRID_PASSWORD='test'
       REDIS_URL='redis://'
       pipenv run python manage.py check --deploy
     - pipenv run coverage run manage.py test
