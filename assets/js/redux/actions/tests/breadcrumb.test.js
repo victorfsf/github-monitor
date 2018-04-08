@@ -1,7 +1,7 @@
 import * as actions from 'redux/actions/breadcrumb';
 
 
-describe('actions', () => {
+describe('Breadcrumb actions', () => {
   it('should create an action to set the breadcrumb object', () => {
     const value = [{
       link: null,

@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Breadcrumb Renders without items 1`] = `
+<nav
+  aria-label="breadcrumb"
+  className="breadcrumb"
+>
+  <div
+    className="container"
+  >
+    <span
+      className="breadcrumb-item"
+    >
+      <a
+        href="/"
+      >
+        Home
+      </a>
+    </span>
+  </div>
+</nav>
+`;
+
+exports[`Breadcrumb Renders with items 1`] = `
+<nav
+  aria-label="breadcrumb"
+  className="breadcrumb"
+>
+  <div
+    className="container"
+  >
+    <span
+      className="breadcrumb-item"
+    >
+      <a
+        href="/"
+      >
+        Home
+      </a>
+    </span>
+    <span
+      className="breadcrumb-item"
+    >
+      <a
+        href="/commits/"
+      >
+        Commits
+      </a>
+    </span>
+    <span
+      aria-current="page"
+      className="breadcrumb-item active"
+    >
+      Repository
+    </span>
+  </div>
+</nav>
+`;

@@ -10,7 +10,6 @@ exports[`NavBar Renders with url 1`] = `
     <a
       className="navbar-brand"
       href="/"
-      onClick={[Function]}
     >
       <i
         className="fa fa-2x fa-github align-middle"

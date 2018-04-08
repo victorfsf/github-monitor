@@ -1,11 +1,8 @@
 import DjangoAPI from 'apis/django';
-import Urls from 'utils/urls';
 
 jest.mock('utils/urls', () => ({
   Urls: jest.mock(),
 }));
-
-global.fetch = jest.fn();
 
 
 describe('DjangoAPI', () => {
@@ -74,39 +71,5 @@ describe('DjangoAPI', () => {
       branch: 'master',
     }];
     expect(expected[0]).toMatchObject(result[0]);
-  });
-
-  test('getCommits without repository', () => {
-    Urls['monitor:commit-list'] = jest.fn();
-    global.fetch.mockReturnValue(
-      Promise.resolve({
-        ok: true,
-        json: () => Promise.resolve({ passed: true }),
-      }),
-    );
-    DjangoAPI.getCommits('').then((response) => {
-      const calls = Urls['monitor:commit-list'].mock.calls;
-      expect(calls.length).toEqual(1);
-      expect(calls[0]).toMatchObject([]);
-      expect(response.passed).toEqual(true);
-    });
-  });
-
-  test('getCommits with repository', () => {
-    Urls['monitor:commit-repo-list'] = jest.fn();
-    const url = Urls['monitor:commit-repo-list'];
-
-    global.fetch.mockReturnValue(
-      Promise.resolve({
-        ok: true,
-        json: () => Promise.resolve({ passed: true }),
-      }),
-    );
-    DjangoAPI.getCommits('', 'repo-owner/repo-name').then((response) => {
-      const calls = url.mock.calls;
-      expect(calls.length).toEqual(1);
-      expect(calls[0]).toMatchObject(['repo-owner', 'repo-name']);
-      expect(response.passed).toEqual(true);
-    });
   });
 });
