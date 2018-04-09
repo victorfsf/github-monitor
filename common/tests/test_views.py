@@ -15,6 +15,11 @@ class TestAppView(TestCaseUtils):
             response.url, self.reverse('users:login')
         )
 
+    def test_user_is_authenticated(self):
+        url = self.reverse('common:index')
+        response = self.auth_client.get(url)
+        self.assertResponse200(response)
+
     def test_user_is_not_authenticated(self):
         client = Client()
         url = self.reverse('common:index')
