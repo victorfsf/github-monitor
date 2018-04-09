@@ -17,15 +17,15 @@ const CommitHeader = props => (
             onClick={props.onClick}
           >
             <i className="fa fa-refresh" />
-          </button>
-          {props.repo && (
-            <small>
-              <a href={`${GITHUB_URL}${props.repo}`} target="blank_">
-                {props.repo}
-              </a>
-            </small>
-          )}
-        </div>
+          </button>{
+            props.repo && (
+              <small>
+                <a href={`${GITHUB_URL}${props.repo}`} target="blank_">
+                  {props.repo}
+                </a>
+              </small>
+            )
+        }</div>
         <div className="col-sm-12 col-md-6">
           <small className="float-md-right">
             {props.count} Commits
@@ -35,11 +35,14 @@ const CommitHeader = props => (
       <div className="row">
         <div className="col-12">
           <small className="text-muted">
-            Last Update: {
-              props.lastUpdate ?
-              formatDate(props.lastUpdate) :
-              'Loading...'
-            }
+            Last Update:
+            <span className="ml-1">
+              {
+                props.lastUpdate ?
+                formatDate(props.lastUpdate) :
+                'Loading...'
+              }
+            </span>
           </small>
         </div>
       </div>

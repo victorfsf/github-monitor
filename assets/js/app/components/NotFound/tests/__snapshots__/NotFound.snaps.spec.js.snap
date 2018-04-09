@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NotFound renders 1`] = `
+<div
+  className="justify-content-center"
+>
+  <div
+    className="not-found"
+  >
+    <i
+      className="fa fa-test"
+    />
+    <div
+      className="title"
+    >
+      title
+    </div>
+    <div
+      className="description"
+    >
+      <div>
+        Node
+      </div>
+    </div>
+  </div>
+</div>
+`;

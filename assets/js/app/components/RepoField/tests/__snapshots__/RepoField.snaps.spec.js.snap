@@ -1,0 +1,226 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RepoField renders 1`] = `
+<div
+  className="form-group"
+>
+  <div
+    className="input-group"
+  >
+    <div
+      className="input-group-prepend"
+    >
+      <span
+        className="input-group-text"
+      >
+        <i
+          className="fa fa-github-alt"
+        />
+      </span>
+    </div>
+    <input
+      aria-describedby="addRepo"
+      autoComplete="off"
+      className="form-control"
+      id="id_name"
+      name="name"
+      onChange={[Function]}
+      placeholder="repository-owner/repository-name"
+      type="text"
+    />
+    <div
+      className="input-group-append"
+    >
+      <button
+        className="btn btn-info"
+        disabled={false}
+        type="submit"
+      >
+        Submit
+      </button>
+    </div>
+  </div>
+  <small
+    className="form-text text-muted"
+  >
+    Repository URL:
+    <a
+      className="ml-1"
+      href="https://github.com/repository-owner/repository-name"
+      target="blank_"
+    >
+      https://github.com/repository-owner/repository-name
+    </a>
+  </small>
+</div>
+`;
+
+exports[`RepoField renders while fetching 1`] = `
+<div
+  className="form-group"
+>
+  <div
+    className="input-group"
+  >
+    <div
+      className="input-group-prepend"
+    >
+      <span
+        className="input-group-text"
+      >
+        <i
+          className="fa fa-github-alt"
+        />
+      </span>
+    </div>
+    <input
+      aria-describedby="addRepo"
+      autoComplete="off"
+      className="form-control"
+      id="id_name"
+      name="name"
+      onChange={[Function]}
+      placeholder="repository-owner/repository-name"
+      type="text"
+    />
+    <div
+      className="input-group-append"
+    >
+      <button
+        className="btn btn-info"
+        disabled={true}
+        type="submit"
+      >
+        Submit
+      </button>
+    </div>
+  </div>
+  <small
+    className="form-text text-muted"
+  >
+    Repository URL:
+    <a
+      className="ml-1"
+      href="https://github.com/test/test"
+      target="blank_"
+    >
+      https://github.com/test/test
+    </a>
+  </small>
+</div>
+`;
+
+exports[`RepoField renders with error 1`] = `
+<div
+  className="form-group"
+>
+  <div
+    className="input-group"
+  >
+    <div
+      className="input-group-prepend"
+    >
+      <span
+        className="input-group-text"
+      >
+        <i
+          className="fa fa-github-alt"
+        />
+      </span>
+    </div>
+    <input
+      aria-describedby="addRepo"
+      autoComplete="off"
+      className="form-control is-invalid"
+      id="id_name"
+      name="name"
+      onChange={[Function]}
+      placeholder="repository-owner/repository-name"
+      type="text"
+    />
+    <div
+      className="input-group-append"
+    >
+      <button
+        className="btn btn-info"
+        disabled={false}
+        type="submit"
+      >
+        Submit
+      </button>
+    </div>
+    <div
+      className="invalid-feedback"
+    >
+      Repository not found.
+    </div>
+  </div>
+  <small
+    className="form-text text-muted"
+  >
+    Repository URL:
+    <a
+      className="ml-1"
+      href="https://github.com/test/test"
+      target="blank_"
+    >
+      https://github.com/test/test
+    </a>
+  </small>
+</div>
+`;
+
+exports[`RepoField renders with value 1`] = `
+<div
+  className="form-group"
+>
+  <div
+    className="input-group"
+  >
+    <div
+      className="input-group-prepend"
+    >
+      <span
+        className="input-group-text"
+      >
+        <i
+          className="fa fa-github-alt"
+        />
+      </span>
+    </div>
+    <input
+      aria-describedby="addRepo"
+      autoComplete="off"
+      className="form-control"
+      id="id_name"
+      name="name"
+      onChange={[Function]}
+      placeholder="repository-owner/repository-name"
+      type="text"
+    />
+    <div
+      className="input-group-append"
+    >
+      <button
+        className="btn btn-info"
+        disabled={false}
+        type="submit"
+      >
+        Submit
+      </button>
+    </div>
+  </div>
+  <small
+    className="form-text text-muted"
+  >
+    Repository URL:
+    <a
+      className="ml-1"
+      href="https://github.com/test/test"
+      target="blank_"
+    >
+      https://github.com/test/test
+    </a>
+  </small>
+</div>
+`;

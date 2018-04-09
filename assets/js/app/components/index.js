@@ -5,6 +5,7 @@ import LoginForm from './LoginForm';
 import RepoField from './RepoField';
 import Spinner from './Spinner';
 import Pagination from './Pagination';
+import NotFound from './NotFound';
 
 export {
   Box,
@@ -14,4 +15,5 @@ export {
   RepoField,
   Spinner,
   Pagination,
+  NotFound,
 };

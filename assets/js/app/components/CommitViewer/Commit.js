@@ -10,12 +10,12 @@ import './styles.scss';
 
 
 const Commit = (props) => {
-  const { payload } = props;
-  if (!payload) {
+  const { data } = props;
+  if (!data) {
     return <Box />;
   }
-  const message = payload.message.split('\n', 1)[0];
-  const { author } = payload;
+  const message = data.message.split('\n', 1)[0];
+  const { author } = data;
   const userProfileUrl = `${GITHUB_URL}${author.login}`;
   const avatar = <Avatar id={author.github_id} name={author.name} />;
 
@@ -23,7 +23,7 @@ const Commit = (props) => {
     <Box>
       <div className="media">
         {author.login ? (
-          <a href={`${GITHUB_URL}${author.login}`} target="blank_">
+          <a href={userProfileUrl} target="blank_">
             {avatar}
           </a>
         ) : avatar}
@@ -36,7 +36,7 @@ const Commit = (props) => {
             </div>
             <div className="col-md-4 col-sm-12">
               <small className="float-md-right text-muted">
-                {formatDate(payload.date)}
+                {formatDate(data.date)}
               </small>
             </div>
           </div>
@@ -50,12 +50,12 @@ const Commit = (props) => {
                 {author.login && `[${author.login}]`}
               </span>
               <i className="fa fa-code-fork pl-2 pr-1" />
-              {payload.branch}
+              {data.branch}
             </div>
             <div className="col-md-4 col-sm-12 pt-sm-2 pt-md-0">
               <span className="float-md-right">
-                <Link to={`/commits/${payload.repository}`}>
-                  {payload.repository}
+                <Link to={`/commits/${data.repository}`}>
+                  {data.repository}
                 </Link>
               </span>
             </div>
@@ -63,8 +63,8 @@ const Commit = (props) => {
           <small className="row">
             <div className="col-12 pt-sm-2 pt-md-0">
               <i className="fa fa-code pr-1" />
-              <a href={payload.url} target="blank_">
-                {payload.sha}
+              <a href={data.url} target="blank_">
+                {data.sha}
               </a>
             </div>
           </small>
@@ -76,12 +76,7 @@ const Commit = (props) => {
 
 
 Commit.propTypes = {
-  payload: PropTypes.shape(commitPropTypes),
-};
-
-
-Commit.defaultProps = {
-  payload: null,
+  data: PropTypes.shape(commitPropTypes).isRequired,
 };
 
 

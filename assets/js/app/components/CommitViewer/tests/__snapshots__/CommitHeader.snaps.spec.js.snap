@@ -1,0 +1,131 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CommitHeader renders 1`] = `
+<div
+  className="my-3 p-3 bg-white rounded box-border"
+>
+  <div
+    className="align-middle"
+  >
+    <div
+      className="row"
+    >
+      <div
+        className="col-sm-12 col-md-6"
+      >
+        Captured Commits
+        <button
+          className="btn btn-sm btn-link"
+          onClick={[Function]}
+          type="button"
+        >
+          <i
+            className="fa fa-refresh"
+          />
+        </button>
+        <small>
+          <a
+            href="https://github.com/test/test"
+            target="blank_"
+          >
+            test/test
+          </a>
+        </small>
+      </div>
+      <div
+        className="col-sm-12 col-md-6"
+      >
+        <small
+          className="float-md-right"
+        >
+          0
+           Commits
+        </small>
+      </div>
+    </div>
+    <div
+      className="row"
+    >
+      <div
+        className="col-12"
+      >
+        <small
+          className="text-muted"
+        >
+          Last Update:
+          <span
+            className="ml-1"
+          >
+            Loading...
+          </span>
+        </small>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`CommitHeader renders with lastUpdate and count 1`] = `
+<div
+  className="my-3 p-3 bg-white rounded box-border"
+>
+  <div
+    className="align-middle"
+  >
+    <div
+      className="row"
+    >
+      <div
+        className="col-sm-12 col-md-6"
+      >
+        Captured Commits
+        <button
+          className="btn btn-sm btn-link"
+          onClick={[Function]}
+          type="button"
+        >
+          <i
+            className="fa fa-refresh"
+          />
+        </button>
+        <small>
+          <a
+            href="https://github.com/test/test"
+            target="blank_"
+          >
+            test/test
+          </a>
+        </small>
+      </div>
+      <div
+        className="col-sm-12 col-md-6"
+      >
+        <small
+          className="float-md-right"
+        >
+          10
+           Commits
+        </small>
+      </div>
+    </div>
+    <div
+      className="row"
+    >
+      <div
+        className="col-12"
+      >
+        <small
+          className="text-muted"
+        >
+          Last Update:
+          <span
+            className="ml-1"
+          >
+            Apr 2, 2018 at 7:53:19 PM
+          </span>
+        </small>
+      </div>
+    </div>
+  </div>
+</div>
+`;

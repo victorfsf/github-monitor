@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Avatar renders without id 1`] = `
+<div
+  className="avatar mr-3 rounded justify-content-center d-flex"
+>
+  <i
+    className=" fa fa-github-alt fa-2x align-middle"
+  />
+</div>
+`;
+
+exports[`Avatar renders with id 1`] = `
+<img
+  alt="Author"
+  className="mr-3 rounded"
+  src="https://avatars1.githubusercontent.com/u/1?v=4"
+  width="40px"
+/>
+`;

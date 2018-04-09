@@ -16,8 +16,7 @@ describe('NavBar', () => {
     global.console = {
       error: jest.fn(),
     };
-    Component = renderer.create(<NavBar />);
-    tree = Component.toJSON();
+    renderer.create(<NavBar />);
     expect(global.console.error).toHaveBeenCalledWith(
       'Warning: Failed prop type: The prop `logoutUrl` is marked as ' +
       'required in `NavBar`, but its value is `undefined`.\n    in NavBar',
