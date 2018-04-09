@@ -19,6 +19,7 @@ pre-commit = "*"
 prospector = {git = "https://github.com/vintasoftware/prospector.git", ref="f81e290", extras = ["with-vulture"]}
 pylint = "*"
 safety = "*"
+python-coveralls = "*"
 
 
 [packages]

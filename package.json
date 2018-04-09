@@ -5,7 +5,8 @@
   "description": "github_monitor frontend assets.",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --silent",
+    "test:loud": "jest",
     "test:watch": "npm test -- --watch",
     "start": "babel-node server.js",
     "build": "NODE_ENV=production webpack -p --progress --colors --config webpack.prod.config.js --bail",
