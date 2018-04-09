@@ -1,6 +1,9 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import CommitHeader from 'app/components/CommitViewer/CommitHeader';
+import * as utils from 'utils';
+
+utils.formatDate = jest.fn(() => 'MMM D, YYYY [at] h:mm:ss A');
 
 
 describe('CommitHeader', () => {
@@ -21,7 +24,7 @@ describe('CommitHeader', () => {
         count={10}
         repo="test/test"
         onClick={e => e}
-        lastUpdate="2018-04-02T22:53:19Z"
+        lastUpdate="today"
       />,
     );
     tree = Component.toJSON();

@@ -121,7 +121,7 @@ exports[`CommitHeader renders with lastUpdate and count 1`] = `
           <span
             className="ml-1"
           >
-            Apr 2, 2018 at 7:53:19 PM
+            MMM D, YYYY [at] h:mm:ss A
           </span>
         </small>
       </div>

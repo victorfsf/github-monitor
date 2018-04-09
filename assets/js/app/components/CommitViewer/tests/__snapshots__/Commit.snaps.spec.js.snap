@@ -38,7 +38,7 @@ exports[`Commit renders with payload 1`] = `
           <small
             className="float-md-right text-muted"
           >
-            Apr 2, 2018 at 7:53:19 PM
+            MMM D, YYYY [at] h:mm:ss A
           </small>
         </div>
       </div>

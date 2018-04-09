@@ -3,6 +3,9 @@ import renderer from 'react-test-renderer';
 import Commit from 'app/components/CommitViewer/Commit';
 import * as AvatarModule from 'app/components/CommitViewer/Avatar';
 import * as ReactRouter from 'react-router-dom';
+import * as utils from 'utils';
+
+utils.formatDate = jest.fn(() => 'MMM D, YYYY [at] h:mm:ss A');
 
 ReactRouter.Link = jest.fn(props => (
   <a href={props.to}>{props.children}</a>
@@ -22,7 +25,7 @@ describe('Commit', () => {
       <Commit
         data={{
           message: 'test',
-          date: '2018-04-02T22:53:19Z',
+          date: 'today',
           branch: 'master',
           repository: 'test/test',
           url: 'https://github.com/',
