@@ -5,6 +5,8 @@ from .base import *  # noqa
 
 SECRET_KEY = 'test'
 
+HOST = 'http://test.example.com/'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
