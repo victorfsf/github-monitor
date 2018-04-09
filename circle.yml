@@ -49,7 +49,7 @@ test:
     - npm run test
     - pipenv run coverage report
   post:
-    - coveralls
+    - pipenv run coveralls
     - pipenv run coverage html -d $CIRCLE_ARTIFACTS
 
 # This is necessary for the boilerplate's CI. You can remove these lines
