@@ -48,7 +48,6 @@ test:
     - pipenv run coverage run manage.py test
     - npm run test
     - pipenv run coverage report
-    - pipenv run coveralls
   post:
     - pipenv run coverage html -d $CIRCLE_ARTIFACTS
 

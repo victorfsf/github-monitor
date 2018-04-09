@@ -14,8 +14,8 @@ django-debug-toolbar-request-history = "*"
 django-naomi = "*"
 fixmydjango = "*"
 isort = "*"
-model-mommy = "*"
-pre-commit = "*"
+model_mommy = "*"
+pre_commit = "*"
 prospector = {git = "https://github.com/vintasoftware/prospector.git", ref="f81e290", extras = ["with-vulture"]}
 pylint = "*"
 safety = "*"
@@ -23,7 +23,7 @@ safety = "*"
 
 [packages]
 
-django = ">=1.11,<2"
+Django = ">=1.11,<2"
 celery = {extras = ["redis"]}
 django-model-utils = "*"
 django-webpack-loader = "*"
@@ -41,7 +41,6 @@ whitenoise = "*"
 ipython = "*"
 social-auth-app-django = "*"
 django-rest-framework = "*"
-python-coveralls = "*"
 
 
 [requires]
