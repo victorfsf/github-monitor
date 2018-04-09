@@ -48,8 +48,8 @@ test:
     - pipenv run coverage run manage.py test
     - npm run test
     - pipenv run coverage report
-  post:
     - pipenv run coveralls
+  post:
     - pipenv run coverage html -d $CIRCLE_ARTIFACTS
 
 # This is necessary for the boilerplate's CI. You can remove these lines
