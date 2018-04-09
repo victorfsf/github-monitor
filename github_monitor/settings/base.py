@@ -115,10 +115,6 @@ LOGIN_REDIRECT_URL = 'common:index'
 
 LOGOUT_REDIRECT_URL = 'users:login'
 
-SOCIAL_AUTH_GITHUB_KEY = 'b977200f1c3614415d94'
-
-SOCIAL_AUTH_GITHUB_SECRET = 'c7bf5991dba288e71263a8908bc54a5fcda52bd7'
-
 SOCIAL_AUTH_GITHUB_SCOPE = [
     'user:email', 'repo', 'admin:repo_hook'
 ]

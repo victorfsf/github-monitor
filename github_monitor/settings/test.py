@@ -26,3 +26,6 @@ STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 # Celery
 CELERY_TASK_ALWAYS_EAGER = True
 CELERY_TASK_EAGER_PROPAGATES = True
+
+GITHUB_CLIENT_KEY = 'test-client-key'
+GITHUB_CLIENT_SECRET = 'test-client-secret'

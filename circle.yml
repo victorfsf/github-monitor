@@ -42,6 +42,8 @@ test:
       ALLOWED_HOSTS='.example.org'
       HOST='example.org'
       REDIS_URL='redis://'
+      GITHUB_CLIENT_KEY='1234'
+      GITHUB_CLIENT_SECRET='5678'
       pipenv run python manage.py check --deploy
     - pipenv run coverage run manage.py test
     - npm run test
