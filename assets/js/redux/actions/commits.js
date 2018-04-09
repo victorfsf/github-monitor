@@ -50,8 +50,14 @@ export const fetchCommitsIfNeeded = (params = null, force = false, repo) => (
         params === null ? document.location.search : params, repo,
       ));
     }
+    const { selectedCommits } = state;
     return Promise.resolve(
-      dispatch(receiveCommits(state.commits)),
+      dispatch(receiveCommits(
+        selectedCommits.commits,
+        selectedCommits.count,
+        selectedCommits.nextPage,
+        selectedCommits.prevPage,
+      )),
     );
   }
 );

@@ -1,27 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import LoginPage from 'pages/loginPage';
-import Routes from 'routes';
-import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
-import configureStore from 'redux/configureStore';
+import store from 'store';
 
 
-if (document.getElementById('react-login') !== null) {
-  ReactDOM.render(
-    <LoginPage />,
-    document.getElementById('react-login'),
-  );
-} else {
-  const store = configureStore();
-
-  ReactDOM.render(
-    <Provider store={store}>
-      <BrowserRouter>
-        <Routes />
-      </BrowserRouter>
-    </Provider>,
-    document.getElementById('react-app'),
-  );
-}
+ReactDOM.render(
+  <LoginPage store={store} />,
+  document.getElementById('react-app'),
+);
 

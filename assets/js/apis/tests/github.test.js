@@ -15,13 +15,13 @@ const testGithubAPI = (args, payload, expected, fn) => {
 describe('GithubAPI', () => {
   test('getUrl without args', () => {
     expect(GithubAPI.getUrl('test/test')).toEqual(
-      `${GITHUB_API_URL}test/test?access_token=undefined&`,
+      `${GITHUB_API_URL}test/test?access_token=null&`,
     );
   });
 
   test('getUrl with args', () => {
     expect(GithubAPI.getUrl('test/test', 'sha=8748932473')).toEqual(
-      `${GITHUB_API_URL}test/test?access_token=undefined&sha=8748932473`,
+      `${GITHUB_API_URL}test/test?access_token=null&sha=8748932473`,
     );
   });
 

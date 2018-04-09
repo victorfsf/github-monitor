@@ -1,7 +1,7 @@
 import { GITHUB_API_URL } from 'constants/github';
 import { filterDuplicates } from 'utils';
-import cookie from 'js-cookie';
 import moment from 'moment';
+import store from 'store';
 
 
 const injectBranch = (branch, commits) => (
@@ -11,8 +11,14 @@ const injectBranch = (branch, commits) => (
 
 class GithubAPI {
 
+  static getAccessFromStore() {
+    const { tokens } = store.getState();
+    return tokens.access;
+  }
+
   static getUrl(path, args = '') {
-    return `${GITHUB_API_URL}${path}?access_token=${cookie('accesstoken')}&${args}`;
+    const accessToken = this.getAccessFromStore();
+    return `${GITHUB_API_URL}${path}?access_token=${accessToken}&${args}`;
   }
 
   static getRepository(repo) {

@@ -11,13 +11,30 @@ class TestCaseUtils(TestCase):
         self.user = mommy.prepare('users.User', username='test_username')
         self.user.set_password(self._user_password)
         self.user.save()
-        self.github_user = mommy.make('users.GithubUser', user=self.user)
-
+        self.github_user = mommy.make(
+            'users.GithubUser', user=self.user,
+            extra_data={'access_token': '1234'}
+        )
         self.auth_client = Client()
         self.auth_client.login(
             username=self.user.username,
             password=self._user_password
         )
+
+    def get_client_without_github(self, is_superuser=False):
+        user = mommy.prepare(
+            'users.User',
+            username='test_username2',
+            is_superuser=is_superuser
+        )
+        user.set_password(self._user_password)
+        user.save()
+        client = Client()
+        client.login(
+            username=user.username,
+            password=self._user_password
+        )
+        return client
 
     def tearDown(self):
         self.github_user.delete()

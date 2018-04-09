@@ -1,5 +1,5 @@
-import cookie from 'js-cookie';
 import { Urls } from 'utils';
+import store from 'store';
 
 
 class DjangoAPI {
@@ -20,8 +20,22 @@ class DjangoAPI {
     }));
   }
 
+  static getCSRFFromStore() {
+    const { tokens } = store.getState();
+    return tokens.csrf;
+  }
+
+  static getToken() {
+    return fetch(
+      Urls['users:tokens'](), {
+        credentials: 'same-origin',
+      },
+    ).then(response => response.json());
+  }
+
   static postRepository(repo, commits) {
     const [owner, name] = repo.split('/');
+    const token = this.getCSRFFromStore();
     return fetch(
       Urls['monitor:repository-list'](), {
         method: 'POST',
@@ -33,7 +47,7 @@ class DjangoAPI {
         credentials: 'same-origin',
         headers: {
           'Content-Type': 'application/json',
-          'X-CSRFToken': cookie('csrftoken'),
+          'X-CSRFToken': token,
         },
       },
     ).then((response) => {
@@ -74,6 +88,5 @@ class DjangoAPI {
   }
 
 }
-
 
 export default DjangoAPI;
