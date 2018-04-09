@@ -76,6 +76,9 @@ exports[`Commit renders with payload 1`] = `
             <a
               href="/commits/test/test"
             >
+              <i
+                className="fa fa-folder-open-o pr-1"
+              />
               test/test
             </a>
           </span>

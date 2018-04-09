@@ -55,6 +55,7 @@ const Commit = (props) => {
             <div className="col-md-4 col-sm-12 pt-sm-2 pt-md-0">
               <span className="float-md-right">
                 <Link to={`/commits/${data.repository}`}>
+                  <i className="fa fa-folder-open-o pr-1" />
                   {data.repository}
                 </Link>
               </span>
