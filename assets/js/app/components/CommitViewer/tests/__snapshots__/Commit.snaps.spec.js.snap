@@ -1,0 +1,104 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Commit renders with payload 1`] = `
+<div
+  className="my-3 p-3 bg-white rounded box-border"
+>
+  <div
+    className="media"
+  >
+    <a
+      href="https://github.com/author"
+      target="blank_"
+    >
+      <div
+        id={1}
+        name="Author Name"
+      />
+    </a>
+    <div
+      className="media-body"
+    >
+      <div
+        className="row"
+      >
+        <div
+          className="col-md-8 col-sm-12"
+        >
+          <span
+            className="title"
+            title="test"
+          >
+            test
+          </span>
+        </div>
+        <div
+          className="col-md-4 col-sm-12"
+        >
+          <small
+            className="float-md-right text-muted"
+          >
+            Apr 2, 2018 at 7:53:19 PM
+          </small>
+        </div>
+      </div>
+      <small
+        className="row"
+      >
+        <div
+          className="col-md-8 col-sm-12 pt-xs-2 pt-sm-2 pt-md-0"
+        >
+          <a
+            href="https://github.com/author"
+            target="blank_"
+          >
+            <i
+              className="fa fa-user-o pr-1"
+            />
+            Author Name
+          </a>
+          <span
+            className="pl-1 text-muted"
+          >
+            [author]
+          </span>
+          <i
+            className="fa fa-code-fork pl-2 pr-1"
+          />
+          master
+        </div>
+        <div
+          className="col-md-4 col-sm-12 pt-sm-2 pt-md-0"
+        >
+          <span
+            className="float-md-right"
+          >
+            <a
+              href="/commits/test/test"
+            >
+              test/test
+            </a>
+          </span>
+        </div>
+      </small>
+      <small
+        className="row"
+      >
+        <div
+          className="col-12 pt-sm-2 pt-md-0"
+        >
+          <i
+            className="fa fa-code pr-1"
+          />
+          <a
+            href="https://github.com/"
+            target="blank_"
+          >
+            132465789
+          </a>
+        </div>
+      </small>
+    </div>
+  </div>
+</div>
+`;

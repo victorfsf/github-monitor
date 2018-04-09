@@ -2,14 +2,14 @@
 
 exports[`NavBar Renders with url 1`] = `
 <nav
-  className="navbar navbar-light bg-white"
+  className="navbar navbar-dark bg-dark"
 >
   <div
     className="container"
   >
     <a
       className="navbar-brand"
-      href=""
+      href="/"
     >
       <i
         className="fa fa-2x fa-github align-middle"

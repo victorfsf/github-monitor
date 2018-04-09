@@ -9,7 +9,7 @@ const CommitHeader = props => (
   <Box>
     <div className="align-middle">
       <div className="row">
-        <div className="col-sm-12 col-md-6">
+        <div className="col-sm-12 col-md-8">
           Captured Commits
           <button
             type="button"
@@ -17,16 +17,16 @@ const CommitHeader = props => (
             onClick={props.onClick}
           >
             <i className="fa fa-refresh" />
-          </button>
-          {props.repo && (
-            <small>
-              <a href={`${GITHUB_URL}${props.repo}`} target="blank_">
-                {props.repo}
-              </a>
-            </small>
-          )}
-        </div>
-        <div className="col-sm-12 col-md-6">
+          </button>{
+            props.repo && (
+              <small>
+                <a href={`${GITHUB_URL}${props.repo}`} target="blank_">
+                  {props.repo}
+                </a>
+              </small>
+            )
+        }</div>
+        <div className="col-sm-12 col-md-4">
           <small className="float-md-right">
             {props.count} Commits
           </small>
@@ -35,11 +35,14 @@ const CommitHeader = props => (
       <div className="row">
         <div className="col-12">
           <small className="text-muted">
-            Last Update: {
-              props.lastUpdate ?
-              formatDate(props.lastUpdate) :
-              'Loading...'
-            }
+            Last Update:
+            <span className="ml-1">
+              {
+                props.lastUpdate ?
+                formatDate(props.lastUpdate) :
+                'Loading...'
+              }
+            </span>
           </small>
         </div>
       </div>

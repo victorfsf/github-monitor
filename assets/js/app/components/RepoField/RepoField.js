@@ -43,7 +43,7 @@ const RepoField = (props) => {
         )}
       </div>
       <small className="form-text text-muted">
-        Repository URL: <a href={repoUrl} target="blank_">{repoUrl}</a>
+        Repository URL:<a href={repoUrl} className="ml-1" target="blank_">{repoUrl}</a>
       </small>
     </div>
   );
@@ -53,14 +53,16 @@ const RepoField = (props) => {
 RepoField.propTypes = {
   value: PropTypes.string,
   errorMessage: PropTypes.string,
+  isFetching: PropTypes.bool,
+  hasError: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
-  isFetching: PropTypes.bool.isRequired,
-  hasError: PropTypes.bool.isRequired,
 };
 
 RepoField.defaultProps = {
   value: '',
   errorMessage: '',
+  isFetching: false,
+  hasError: false,
 };
 
 export default RepoField;

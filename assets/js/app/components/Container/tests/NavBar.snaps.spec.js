@@ -1,6 +1,11 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import NavBar from 'app/components/Container/NavBar';
+import * as ReactRouter from 'react-router-dom';
+
+ReactRouter.Link = jest.fn(props => (
+  <a href={props.to} className={props.className}>{props.children}</a>
+));
 
 
 describe('NavBar', () => {
@@ -11,8 +16,7 @@ describe('NavBar', () => {
     global.console = {
       error: jest.fn(),
     };
-    Component = renderer.create(<NavBar />);
-    tree = Component.toJSON();
+    renderer.create(<NavBar />);
     expect(global.console.error).toHaveBeenCalledWith(
       'Warning: Failed prop type: The prop `logoutUrl` is marked as ' +
       'required in `NavBar`, but its value is `undefined`.\n    in NavBar',

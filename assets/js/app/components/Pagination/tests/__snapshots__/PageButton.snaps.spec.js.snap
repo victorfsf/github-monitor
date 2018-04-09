@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PageButton renders 1`] = `
+<li
+  className="page-item "
+>
+  <button
+    className="page-link"
+    onClick={[Function]}
+    type="button"
+  >
+    Child
+  </button>
+</li>
+`;
+
+exports[`PageButton renders disabled 1`] = `
+<li
+  className="page-item disabled"
+>
+  <button
+    className="page-link"
+    onClick={[Function]}
+    type="button"
+  >
+    Child
+  </button>
+</li>
+`;

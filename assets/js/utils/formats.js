@@ -11,7 +11,7 @@ const filterDuplicates = (l, key) => (
 
 
 const formatDate = date => (
-  moment(date).format('MMM, D YYYY [at] h:mm:ss A')
+  moment(date).format('MMM D, YYYY [at] h:mm:ss A')
 );
 
 

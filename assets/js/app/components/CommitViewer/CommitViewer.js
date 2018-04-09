@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { commitPropTypes, breadcrumbPropTypes } from 'types';
 import { fetchCommitsIfNeeded } from 'redux/actions/commits';
-import { Container, Spinner, Pagination } from 'app/components';
-import Commit from './Commit';
+import { Container, Pagination } from 'app/components';
+import CommitList from './CommitList';
 import CommitHeader from './CommitHeader';
 
 
@@ -14,7 +14,6 @@ class CommitViewer extends React.Component {
     const { dispatch, repo } = this.props;
     dispatch(fetchCommitsIfNeeded(null, false, repo));
   }
-
 
   onClickPrev() {
     const { dispatch, prevPage, history, repo } = this.props;
@@ -47,11 +46,7 @@ class CommitViewer extends React.Component {
           count={count}
           repo={repo}
         />
-        {
-          isFetching ? <Spinner /> : commits && commits.map(commit => (
-            <Commit key={commit.id} payload={commit} />
-          ))
-        }
+        <CommitList items={commits} isFetching={isFetching} />
         <Pagination
           onClickNext={() => this.onClickNext()}
           onClickPrev={() => this.onClickPrev()}

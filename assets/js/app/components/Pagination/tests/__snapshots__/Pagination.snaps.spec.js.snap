@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Pagination renders 1`] = `
+<nav
+  aria-label="Commits navigation"
+  className="mt-4 mb-5"
+>
+  <ul
+    className="pagination justify-content-center"
+  >
+    <li
+      className="page-item "
+    >
+      <button
+        className="page-link"
+        onClick={[Function]}
+        type="button"
+      >
+        Newer
+      </button>
+    </li>
+    <li
+      className="page-item disabled"
+    >
+      <button
+        className="page-link"
+        onClick={[Function]}
+        type="button"
+      >
+        Older
+      </button>
+    </li>
+  </ul>
+</nav>
+`;

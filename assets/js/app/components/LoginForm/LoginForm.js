@@ -5,7 +5,7 @@ import './styles.scss';
 
 const LoginForm = props => (
   <div className="login">
-    <div className="col-lg-4 col-md-6 col-sm-8 col-xs-12 col-centered">
+    <div className="col-lg-4 col-md-6 col-sm-8 col-xs-12 justify-content-center">
       <div className="login-box">
         <div className="logo-container">
           <i className="fa fa-4x fa-github" />
