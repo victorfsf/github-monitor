@@ -213,6 +213,6 @@ class TestRepositorySerializer(TestCase):
         repo = serializer.create_or_update(new_data)
 
         self.assertEqual(
-            repo.commits.order_by('sha').distinct('sha').count(),
+            len(set((repo.commits.order_by('sha').values_list('sha')))),
             first.commits.count()
         )
