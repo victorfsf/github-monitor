@@ -9,7 +9,7 @@ const CommitHeader = props => (
   <Box>
     <div className="align-middle">
       <div className="row">
-        <div className="col-sm-12 col-md-6">
+        <div className="col-sm-12 col-md-8">
           Captured Commits
           <button
             type="button"
@@ -26,7 +26,7 @@ const CommitHeader = props => (
               </small>
             )
         }</div>
-        <div className="col-sm-12 col-md-6">
+        <div className="col-sm-12 col-md-4">
           <small className="float-md-right">
             {props.count} Commits
           </small>

@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CommitList renders with items 1`] = `
+<div>
+  <div
+    id="commit"
+  />
+  <div
+    id="commit"
+  />
+</div>
+`;
+
+exports[`CommitList renders without items 1`] = `
+<div
+  className="fa fa-4x fa-frown-o"
+  title="Nothing to see here!"
+/>
+`;
+
+exports[`CommitList renders while fetching 1`] = `
+<div
+  id="spinner"
+/>
+`;

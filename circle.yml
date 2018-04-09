@@ -2,7 +2,7 @@ machine:  # remeber to update those!
   python:
     version: 3.6.3
   node:
-    version: 8.9.4
+    version: 8.11.1
   environment:
     # makes default virtualenv be ignored by pipenv avoiding dependencies conflict
     PIPENV_IGNORE_VIRTUALENVS: True

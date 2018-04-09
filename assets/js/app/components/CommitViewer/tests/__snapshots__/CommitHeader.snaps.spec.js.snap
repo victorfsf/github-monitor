@@ -11,7 +11,7 @@ exports[`CommitHeader renders 1`] = `
       className="row"
     >
       <div
-        className="col-sm-12 col-md-6"
+        className="col-sm-12 col-md-8"
       >
         Captured Commits
         <button
@@ -33,7 +33,7 @@ exports[`CommitHeader renders 1`] = `
         </small>
       </div>
       <div
-        className="col-sm-12 col-md-6"
+        className="col-sm-12 col-md-4"
       >
         <small
           className="float-md-right"
@@ -76,7 +76,7 @@ exports[`CommitHeader renders with lastUpdate and count 1`] = `
       className="row"
     >
       <div
-        className="col-sm-12 col-md-6"
+        className="col-sm-12 col-md-8"
       >
         Captured Commits
         <button
@@ -98,7 +98,7 @@ exports[`CommitHeader renders with lastUpdate and count 1`] = `
         </small>
       </div>
       <div
-        className="col-sm-12 col-md-6"
+        className="col-sm-12 col-md-4"
       >
         <small
           className="float-md-right"
