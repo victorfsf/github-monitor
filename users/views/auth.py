@@ -36,9 +36,7 @@ def login(request):
 
 def logout(request):
     if request.user.is_authenticated():
-        response = auth_views.logout(request)
-        response.delete_cookie('accesstoken')
-        return response
+        return auth_views.logout(request)
     return login_redirect()
 
 

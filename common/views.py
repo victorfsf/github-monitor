@@ -4,8 +4,6 @@ from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
-from users.utils import login_redirect
-
 
 @login_required
 def app_view(request):
@@ -18,6 +16,4 @@ def app_view(request):
         else:
             url = reverse_lazy('users:logout')
         return HttpResponseRedirect(url)
-    else:
-        return login_redirect()
     return response
