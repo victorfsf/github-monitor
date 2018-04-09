@@ -1,23 +1,15 @@
 from django.shortcuts import get_object_or_404
 
-from rest_framework import viewsets
-
-from monitor.models import Commit, Repository
-from monitor.serializers import CommitSerializer, RepositorySerializer
-
-
-class CommitViewSetMixin(object):
-
-    queryset = Commit.objects.all()
-    serializer_class = CommitSerializer
-
-    def get_queryset(self):
-        return self.queryset.filter(repository__users=self.request.user)
+from monitor.models import Repository
+from monitor.serializers import RepositorySerializer
+from monitor.views.mixins import (
+    CommitViewSetMixin, ListCreateRetrieveViewSetMixin, ListRetrieveViewSetMixin
+)
 
 
-class RepositoryCommitsViewSet(CommitViewSetMixin, viewsets.GenericViewSet):
+class RepositoryCommitsViewSet(CommitViewSetMixin, ListRetrieveViewSetMixin):
 
-    def list(self, request, name, owner):
+    def list(self, request, name, owner):  # pylint: disable=arguments-differ
         repository = get_object_or_404(
             Repository, users=request.user, name=name, owner=owner
         )
@@ -29,7 +21,7 @@ class RepositoryCommitsViewSet(CommitViewSetMixin, viewsets.GenericViewSet):
         return self.get_paginated_response(serializer.data)
 
 
-class RepositoryViewSet(viewsets.ModelViewSet):
+class RepositoryViewSet(ListCreateRetrieveViewSetMixin):
 
     queryset = Repository.objects.all()
     serializer_class = RepositorySerializer
@@ -38,5 +30,5 @@ class RepositoryViewSet(viewsets.ModelViewSet):
         return self.queryset.filter(users=self.request.user)
 
 
-class CommitViewSet(CommitViewSetMixin, viewsets.ModelViewSet):
+class CommitViewSet(CommitViewSetMixin, ListRetrieveViewSetMixin):
     pass

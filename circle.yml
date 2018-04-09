@@ -19,6 +19,8 @@ dependencies:
 
 test:
   override:
+    - npm rebuild node-sass --force
+    - npm install
     - npm run build
     - npm run lint
     # style check
